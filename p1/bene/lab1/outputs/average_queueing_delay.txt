@@ -1,0 +1,11 @@
+10% utilization: 126 packets, 0.000143 average queue delay.
+20% utilization: 242 packets, 0.001328 average queue delay.
+30% utilization: 375 packets, 0.001986 average queue delay.
+40% utilization: 502 packets, 0.002889 average queue delay.
+50% utilization: 658 packets, 0.004405 average queue delay.
+60% utilization: 745 packets, 0.005966 average queue delay.
+70% utilization: 873 packets, 0.008067 average queue delay.
+80% utilization: 1005 packets, 0.015097 average queue delay.
+90% utilization: 1063 packets, 0.016832 average queue delay.
+95% utilization: 1188 packets, 0.052805 average queue delay.
+98% utilization: 1209 packets, 0.047720 average queue delay.
