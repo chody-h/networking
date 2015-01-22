@@ -67,7 +67,7 @@ if __name__ == '__main__':
     max_rate = 1000000/(1000*8)
 
     load = utilization*max_rate
-    g = Generator(node=n1,destination=destination,load=load,duration=10)
+    g = Generator(node=n1,destination=destination,load=load,duration=1000)
     Sim.scheduler.add(delay=0, event='generate', handler=g.handle)
     
     # run the simulation
