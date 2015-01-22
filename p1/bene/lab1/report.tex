@@ -93,15 +93,17 @@ The simulator can be shown as being accurate by comparing theoretical results wi
 \vspace{0.5cm}
 \begin{tabular}{lc}
   \toprule
-  Setting & Result\\
+  Delay Type & Calculated & Simulated\\
   \midrule
-  1 & 1.0\\
-  2 & 3.45\\
-  3 & 7.85\\
-  4 & 15.89\\
+  Transmission & \\
+  Propagation & \\
+  Queue & \\
+  Total & \\
   \bottomrule
 \end{tabular}
 \vspace{0.5cm}
+
+Transmission delay is calculated as the result of the size of the packet in bits divided by the bandwidth of the link it is being transmitted onto. Propagation delay is simply a factor of the distance and speed the packet has to travel, but in this experiment, the propagation delays are given. Queueing delay is how long a packet has to wait after it is fully received by a node. The cause of queueing delay is solely a factor of how many packets are in line at the receiving node when a packet arrives. The total delay is the sum of all three of those delays.
 
 \section{Three Nodes}
 
