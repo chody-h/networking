@@ -1,0 +1,65 @@
+\documentclass[11pt]{article}
+
+\usepackage[letterpaper,margin=0.75in]{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\setlength{\parindent}{1.4em}
+
+\begin{document}
+
+\lstset{
+  language=Python,
+  basicstyle=\small,          % print whole listing small
+  keywordstyle=\bfseries,
+  identifierstyle=,           % nothing happens
+  commentstyle=,              % white comments
+  stringstyle=\ttfamily,      % typewriter type for strings
+  showstringspaces=false,     % no special string spaces
+  numbers=left,
+  numberstyle=\tiny,
+  numbersep=5pt,
+  frame=tb,
+}
+
+\title{Network Simulation}
+
+\author{Cody Heffner}
+
+\date{22 Jan. 2015}
+
+\maketitle
+
+\section{Preface}
+
+This report details the experiment I ran and the results obtained as specified by the Network Simulation Lab in the BYU CS 460 class taught by Dr. Zappala. The project specifications can be found \href{http://cs460.byu.edu/winter-2015/labs/network-simulation}{here}.
+
+The experiment requires heavy use of a network simulator to test different network scenarios. The network simulator I used is Dr. Zappala's \href{https://github.com/zappala/bene}{Bene}, written in Python. All my simulation examples shown will be tailored towards this simulator.
+
+\section{Summary}
+
+The goal of the experiment was to test various network scenarios by sending packets across networks of diverse bandwidth and distances, then observing the delays incurred by the transmission, propogation, and queueing of those packets in the network. The next section describes the experiment I ran with a simple two-node network and one bi-directional link set to various bandwidths and lengths. The following section reports the experiment I ran with a three-node network and two bi-directional links. The section after that describes the portion of the experiment that was used to validate queueing theory with regards to an M/D/1 queue on a network. The final section summarizes the experiment as a whole and discusses some things I did wrong during the experiment that gave me deeper insight into how the internet works.
+
+\section{Two Nodes}
+
+The network I created for this part of the experiment was a simple network consisting of two nodes and one bi-directional link. The following scenarios were tested:
+
+\begin{enumerate}
+
+\item One packet of length 1000 bytes sent from node A to node B at time 0. The network's bandwidth was 1Mbps with a propagation delay of 1 second.
+
+\item One packet of length 1000 bytes sent from node A to node B at time 0. The network's bandwidth was 100bps with a propagation delay of 10 ms.
+
+\item Three packets of length 1000 bytes sent from node A to node B at time 0, then one more packet sent at time 2. The network's bandwidth was 1Mbps with a propagation delay of 10 ms.
+
+\end{enumerate}
+
+\section{Three Nodes}
+
+\section{Queueing Theory}
+
+\section{Conclusion}
+
+\end{document}

@@ -38,20 +38,6 @@ def _2n1():
     p = packet.Packet(destination_address=n2.get_address('n1'),ident=1,protocol='delay',length=1000)
     Sim.scheduler.add(delay=0, event=p, handler=n1.send_packet)
 
-    # # take the link down
-    # Sim.scheduler.add(delay=1, event=None, handler=n1.get_link('n2').down)
-
-    # # send one packet (it won't go through)
-    # p = packet.Packet(destination_address=n2.get_address('n1'),ident=2,protocol='delay',length=1000)
-    # Sim.scheduler.add(delay=1.1, event=p, handler=n1.send_packet)
-
-    # # bring the link up
-    # Sim.scheduler.add(delay=2, event=None, handler=n1.get_link('n2').up)
-
-    # # send one packet (and now it goes through)
-    # p = packet.Packet(destination_address=n2.get_address('n1'),ident=3,protocol='delay',length=1000)
-    # Sim.scheduler.add(delay=2.1, event=p, handler=n1.send_packet)
-
     # run the simulation
     Sim.scheduler.run()
 
