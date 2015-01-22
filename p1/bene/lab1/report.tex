@@ -88,24 +88,67 @@ The file 2n1.txt is relatively self-explanatory, but I'll go over it quickly. Th
     n2 n1 1Mbps 1000ms
 \end{lstlisting}
 
-The simulator can be shown as being accurate by comparing theoretical results with simulator results. The following tables compare the delay the packets experience in each situation as calculated by hand and the delay the simulator reported the packets experienced.
+The simulator simulates three types of delays that packets experience as they travel: transmission, propagation, and queueing. 
+
+Transmission delay is calculated as the result of the size of the packet in bits divided by the bandwidth of the link it is being transmitted onto. In scenario 1, transmission delay is the result of (8,000 bits / 1,000,000 bps) = 0.008s.
+
+Propagation delay is simply a factor of the distance and speed the packet has to travel, but in this experiment, the propagation delays are given. In scenario 1, propagation delay = 1s
+
+Queueing delay is how long a packet has to wait after it is fully received by a node. The cause of queueing delay is solely a factor of how many packets are in line at a node when a packet needs to be sent. In scenario 1, only one packet ever exists, so there will be no queueing delay.
+
+The total delay is the sum of all three of those delays.
+
+The simulator can be shown as being accurate by comparing theoretical results with simulator results. The following tables compare the delay the packets experience in each situation as calculated by hand and the delay the simulator reported the packets experienced. In any scenarios with multiple packets, I will show the queueing delay as experienced by the packet with the largest queueing delay.
 
 \vspace{0.5cm}
-\begin{tabular}{lc}
+\begin{tabular}{lcc}
   \toprule
   Delay Type & Calculated & Simulated\\
   \midrule
-  Transmission & \\
-  Propagation & \\
-  Queue & \\
-  Total & \\
+  Transmission & 0.008s & 0.008s\\
+  Propagation & 1s & 1s\\
+  Queue & 0s & 0s\\
+  Total & 1.008s & 1.008s\\
   \bottomrule
+  Scenario 1
 \end{tabular}
 \vspace{0.5cm}
 
-Transmission delay is calculated as the result of the size of the packet in bits divided by the bandwidth of the link it is being transmitted onto. Propagation delay is simply a factor of the distance and speed the packet has to travel, but in this experiment, the propagation delays are given. Queueing delay is how long a packet has to wait after it is fully received by a node. The cause of queueing delay is solely a factor of how many packets are in line at the receiving node when a packet arrives. The total delay is the sum of all three of those delays.
+\vspace{0.5cm}
+\begin{tabular}{lcc}
+  \toprule
+  Delay Type & Calculated & Simulated\\
+  \midrule
+  Transmission & 80s & 80s\\
+  Propagation & 0.01s & 0.01s\\
+  Queue & 0s & 0s\\
+  Total & 80.01s & 80.01s\\
+  \bottomrule
+  Scenario 2
+\end{tabular}
+\vspace{0.5cm}
+
+\vspace{0.5cm}
+\begin{tabular}{lcc}
+  \toprule
+  Delay Type & Calculated & Simulated\\
+  \midrule
+  Transmission & 0.008s & 0.008s\\
+  Propagation & 0.01s & 0.01s\\
+  Queue & 0.016s & 0.016\\
+  Total & 0.034s & 0.034s\\
+  \bottomrule
+  Scenario 3
+\end{tabular}
+\vspace{0.5cm}
+
+In scenario 3, node n1 sends three packets back to back. N1 needs to place the third packet in a queue behind the other two while it transmits the first two. Therefore, the queueing delay for the third packet will be the largest and equal to two times the transmission delay for any packet.
+
+As the three tables above show, the simulator is precise and accurate, finding each of the simulated delay values are equal to the calculated delay values. 
 
 \section{Three Nodes}
+
+
 
 \section{Queueing Theory}
 
