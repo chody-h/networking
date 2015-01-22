@@ -48,13 +48,60 @@ The network I created for this part of the experiment was a simple network consi
 
 \begin{enumerate}
 
-\item One packet of length 1000 bytes sent from node A to node B at time 0. The network's bandwidth was 1Mbps with a propagation delay of 1 second.
+\item One packet of length 1000 bytes sent from node n1 to node n2 at time 0. The network's bandwidth was 1Mbps with a propagation delay of 1 second.
 
-\item One packet of length 1000 bytes sent from node A to node B at time 0. The network's bandwidth was 100bps with a propagation delay of 10 ms.
+\item One packet of length 1000 bytes sent from node n1 to node n2 at time 0. The network's bandwidth was 100bps with a propagation delay of 10 ms.
 
-\item Three packets of length 1000 bytes sent from node A to node B at time 0, then one more packet sent at time 2. The network's bandwidth was 1Mbps with a propagation delay of 10 ms.
+\item Three packets of length 1000 bytes sent from node n1 to node n2 at time 0, then one more packet sent at time 2. The network's bandwidth was 1Mbps with a propagation delay of 10 ms.
 
 \end{enumerate}
+
+The following two code blocks show how I set up the first scenario with one packet sent on a 1Mbps link and a propagation delay of 1. (Network setup for the other two scenarios are nearly exactly identical, so I have omitted the details from this report.) The first block of code is a Python snippet interacting with the Bene simulator. Line 3 builds a Network object as described in the file 2n1.txt, which is shown in the second code block below. Lines 6 and 7 of sim.py simply retrieve nodes for later use. Lines 8 and 9 add a forwarding entry in its forwarding tables for the other node. For example on line 8 the function \emph{add\textunderscore forwarding\textunderscore entry} takes the parameters \emph{address} and \emph{link}. \emph{Address} can be thought of as the receiving IP address n2 has designated to receive packets from n1; thus, the code needs to retrieve that address from n2's attributes. The parameter \emph{link} represents the physical line going out from n1 to n2. In this case it is the first and only link enumerated within n1's \emph{link} array. The forwarding entry is added to n1's forwarding tables.
+
+\begin{lstlisting}
+# sim.py
+    # setup network
+    net = Network('networks/2n1.txt')
+
+    # setup routes
+    n1 = net.get_node('n1')
+    n2 = net.get_node('n2')
+    n1.add_forwarding_entry(address=n2.get_address('n1'),link=n1.links[0])
+    n2.add_forwarding_entry(address=n1.get_address('n2'),link=n2.links[0])
+
+    # setup app
+    d = DelayHandler()
+    net.nodes['n2'].add_protocol(protocol="delay",handler=d)
+\end{lstlisting}
+
+The file 2n1.txt is relatively self-explanatory, but I'll go over it quickly. The first three lines are ignored. Lines 4 and 5 establish nodes and links between nodes. The first word represents a node to be created, and all following words on that same line represent a connection between the first word and each following word. Lines 8 and 9 configure links. The first two words target the start and end node of a link, and the last two words set that link to have a 1Mbps bandwidth and 1000ms (1 second) propagation delay.
+
+\begin{lstlisting}
+# 2n1.txt
+    # n1 -- n2
+    #
+    n1 n2
+    n2 n1
+
+    # link configuration
+    n1 n2 1Mbps 1000ms
+    n2 n1 1Mbps 1000ms
+\end{lstlisting}
+
+The simulator can be shown as being accurate by comparing theoretical results with simulator results. The following tables compare the delay the packets experience in each situation as calculated by hand and the delay the simulator reported the packets experienced.
+
+\vspace{0.5cm}
+\begin{tabular}{lc}
+  \toprule
+  Setting & Result\\
+  \midrule
+  1 & 1.0\\
+  2 & 3.45\\
+  3 & 7.85\\
+  4 & 15.89\\
+  \bottomrule
+\end{tabular}
+\vspace{0.5cm}
 
 \section{Three Nodes}
 
