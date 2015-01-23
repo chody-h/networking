@@ -40,8 +40,6 @@ if __name__ == '__main__':
 
     #arguments
     parser = argparse.ArgumentParser(prog='Delayed Packets', description='Helper of Project 1 of CS 460 at BYU.')
-    # valid arguments for -s:
-    # all 2n1 2n2 2n3 3n1a 3n1b 3n2 qt
     parser.add_argument('-u', '--util', type=float, action='store', default='all')
     args = parser.parse_args()
     utilization = args.util
