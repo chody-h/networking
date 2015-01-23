@@ -135,7 +135,7 @@ def _3n1a():
 
     # send a 1 MB file, split into 1kB packets, from n1 to n3
     for i in range(1, 1001):
-        p = packet.Packet(destination_address=n3.get_address('n2'),ident=1,protocol='delay',length=1000)
+        p = packet.Packet(destination_address=n3.get_address('n2'),ident=i,protocol='delay',length=1000)
         Sim.scheduler.add(delay=0, event=p, handler=n1.send_packet)
 
     # run the simulation
@@ -172,7 +172,7 @@ def _3n1b():
 
     # send a 1 MB file, split into 1kB packets, from n1 to n3
     for i in range(1, 1001):
-        p = packet.Packet(destination_address=n3.get_address('n2'),ident=1,protocol='delay',length=1000)
+        p = packet.Packet(destination_address=n3.get_address('n2'),ident=i,protocol='delay',length=1000)
         Sim.scheduler.add(delay=0, event=p, handler=n1.send_packet)
 
     # run the simulation
@@ -209,7 +209,7 @@ def _3n2():
 
     # send a 1 MB file, split into 1kB packets, from n1 to n3
     for i in range(1, 1001):
-        p = packet.Packet(destination_address=n3.get_address('n2'),ident=1,protocol='delay',length=1000)
+        p = packet.Packet(destination_address=n3.get_address('n2'),ident=i,protocol='delay',length=1000)
         Sim.scheduler.add(delay=0, event=p, handler=n1.send_packet)
 
     # run the simulation

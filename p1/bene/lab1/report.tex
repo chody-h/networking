@@ -56,7 +56,7 @@ The network I created for this part of the experiment was a simple network consi
 
 \end{enumerate}
 
-The following two code blocks show how I set up the first scenario with one packet sent on a 1Mbps link and a propagation delay of 1. (Network setup for the other two scenarios are nearly exactly identical, so I have omitted the details from this report.) The first block of code is a Python snippet interacting with the Bene simulator. Line 3 builds a Network object as described in the file 2n1.txt, which is shown in the second code block below. Lines 6 and 7 of sim.py simply retrieve nodes for later use. Lines 8 and 9 add a forwarding entry in its forwarding tables for the other node. For example on line 8 the function \emph{add\textunderscore forwarding\textunderscore entry} takes the parameters \emph{address} and \emph{link}. \emph{Address} can be thought of as the receiving IP address n2 has designated to receive packets from n1; thus, the code needs to retrieve that address from n2's attributes. The parameter \emph{link} represents the physical line going out from n1 to n2. In this case it is the first and only link enumerated within n1's \emph{link} array. The forwarding entry is added to n1's forwarding tables.
+The following two code blocks show how I set up the first scenario with one packet sent on a 1Mbps link and a propagation delay of 1. (Network setup for the other two scenarios are nearly exactly identical so I have omitted the code from this report.) The first block of code is a Python snippet interacting with the Bene simulator. Line 3 builds a Network object as described in the file 2n1.txt, which is shown in the second code block below. Lines 6 and 7 of sim.py simply retrieve nodes for later use. Lines 8 and 9 add a forwarding entry in its forwarding tables for the other node. For example on line 8 the function \emph{add\textunderscore forwarding\textunderscore entry} takes the parameters \emph{address} and \emph{link}. \emph{Address} can be thought of as the receiving IP address n2 has designated to receive packets from n1; thus, the code needs to retrieve that address from n2's attributes. The parameter \emph{link} represents the physical line going out from n1 to n2. In this case it is the first and only link enumerated within n1's \emph{link} array. The forwarding entry is added to n1's forwarding tables.
 
 \begin{lstlisting}
 # sim.py
@@ -98,7 +98,28 @@ Queueing delay is how long a packet has to wait after it is fully received by a 
 
 The total delay is the sum of all three of those delays.
 
-The simulator can be shown as being accurate by comparing theoretical results with simulator results. The following tables compare the delay the packets experience in each situation as calculated by hand and the delay the simulator reported the packets experienced. In any scenarios with multiple packets, I will show the queueing delay as experienced by the packet with the largest queueing delay.
+The following table shows each simulation's output of each packet's identifier, the time it was created, and the time it was received.
+
+\vspace{0.5cm}
+\begin{tabular}{lcc}
+  \toprule
+  ID & Time Created & Time Receieved\\
+  \midrule
+  Scenario 1: & & \\
+  1 & 0s & 1.008s \\
+  Scenario 2: & & \\
+  1 & 0s & 80.01s \\
+  Scenario 3: & & \\
+  1 & 0s & 0.018s \\
+  2 & 0s & 0.026s \\
+  3 & 0s & 0.034s \\
+  4 & 2s & 2.018s \\
+  \bottomrule
+  Raw Data
+\end{tabular}
+\vspace{0.5cm}
+
+The simulator can be shown as being accurate by comparing theoretical results with simulator results. The following tables compare the delay the packets experience in each situation traveling from n1 to n2 as calculated by hand and the delay the simulator reported the packets experienced. In any scenarios with multiple packets, I will show the queueing delay as experienced by the packet with the largest queueing delay.
 
 \vspace{0.5cm}
 \begin{tabular}{lcc}
@@ -142,13 +163,86 @@ The simulator can be shown as being accurate by comparing theoretical results wi
 \end{tabular}
 \vspace{0.5cm}
 
-In scenario 3, node n1 sends three packets back to back. N1 needs to place the third packet in a queue behind the other two while it transmits the first two. Therefore, the queueing delay for the third packet will be the largest and equal to two times the transmission delay for any packet.
+In scenario 3, node n1 sends three packets back to back. N1 needs to place the third packet in a queue behind the other two while it transmits the first two. Therefore, the largest queueing delay will be experienced by the third packet and will be equal to two times the transmission delay for any packet.
 
 As the three tables above show, the simulator is precise and accurate, finding each of the simulated delay values are equal to the calculated delay values. 
 
 \section{Three Nodes}
 
+For the three-node portion of the experiment, I set up three separate networks. The following list enumerates the three scenarios for which I needed separate networks. 
 
+/begin{enumerate}
+
+/item Two Fast Links, Part A: In a network consisting of three nodes A, B, and C, perform the transfer of a 1 MB file divided into 1000 1 kB packets from node A to C. The links include a link from A to B with 100 ms propagation delay and 1 Mbps bandwidth, and a link from B to C otherwise identical to the first link.
+
+/item Two Fast Links, Part B: In a network consisting of three nodes A, B, and C, perform the transfer of a 1 MB file divided into 1000 1 kB packets from node A to C. The links include a link from A to B with 100 ms propagation delay and 1 Gbps bandwidth, and a link from B to C otherwise identical to the first link.
+
+/item One Fast Link and One Slow Link: In a network consisting of three nodes A, B, and C, perform the transfer of a 1 MB file divided into 1000 1 kB packets from node A to C. The links include a link from A to B with 100 ms propagation delay and 1 Mbps bandwidth, and a link from B to C with 100 ms propagation delay and 256 Kbps bandwidth.
+
+/end{enumerate}
+
+By inspection, all these scenarios are nearly identical. I will only show the raw code for the first network. The following two code blocks show the .txt file describing the network to Bene and the Python file that executes the experiment.
+
+\begin{lstlisting}
+# 3n1a.txt
+    # n1 -- n2 -- n3
+    #
+    n1 n2
+    n2 n1 n3
+    n3 n2
+
+    # link configuration
+    n1 n2 1Mbps 100ms
+    n2 n1 1Mbps 100ms
+    n2 n3 1Mbps 100ms
+    n3 n2 1Mbps 100ms
+\end{lstlisting}
+
+\begin{lstlisting}
+# sim.py
+    # setup network
+    net = Network('networks/3n1a.txt')
+
+    # setup routes
+    n1 = net.get_node('n1')
+    n2 = net.get_node('n2')
+    n3 = net.get_node('n3')
+    n1.add_forwarding_entry(address=n2.get_address('n1'),link=n1.links[0])
+    n1.add_forwarding_entry(address=n3.get_address('n2'),link=n1.links[0])
+    n2.add_forwarding_entry(address=n1.get_address('n2'),link=n2.links[0])
+    n2.add_forwarding_entry(address=n3.get_address('n2'),link=n2.links[1])
+    n3.add_forwarding_entry(address=n2.get_address('n3'),link=n3.links[0])
+    n3.add_forwarding_entry(address=n1.get_address('n2'),link=n3.links[0])
+
+    # setup app
+    d = DelayHandler()
+    net.nodes['n1'].add_protocol(protocol="delay",handler=d)
+    net.nodes['n2'].add_protocol(protocol="delay",handler=d)
+    net.nodes['n3'].add_protocol(protocol="delay",handler=d)
+\end{lstlisting}
+
+Upon close inspection of sim.py, the network needs to be set up in a slightly different way than the two-node network. This network needed six different forwarding table entries compared with two entries in the two-node network. This is because there needs to be a forwarding table entry from \emph{each} node to \emph{every other} node. As you can see from the code, a forwarding table entry is added from n1 to n2 and to n3, then from n2 to n1 and to n3, then finally from n3 to n2 and to n1. The most interesting cases are from n1 to n3 and back. N1 doesn't have a direct link to n3, so it must go through n2. Thus, the forwarding table entry from n1 to n3 needs to specify that it needs to go to the address n3 has dedicated to receive from n2, and it needs to run on the first (and only) link n1 has - the link to n2.
+
+In the first scenario of transferring a 1 MB file across a pretty fast network, the simulation calculated that the file transfer was complete at time t=8.208s. For the second scenario of transferring a 1 MB file across a very fast network, the simulation calculated that the file transfer was complete at time t=0.208008s. The unbalanced network scenario, where one link was fast and one link was slow, resulted in a file transfer time of t=31.458s.
+
+\vspace{0.5cm}
+\begin{tabular}{lcc}
+  \toprule
+  ID & Time Created & Time Receieved\\
+  \midrule
+  Scenario 1: & & \\
+  1 & 0s & 1.008s \\
+  Scenario 2: & & \\
+  1 & 0s & 80.01s \\
+  Scenario 3: & & \\
+  1 & 0s & 0.018s \\
+  2 & 0s & 0.026s \\
+  3 & 0s & 0.034s \\
+  4 & 2s & 2.018s \\
+  \bottomrule
+  Raw Data
+\end{tabular}
+\vspace{0.5cm}
 
 \section{Queueing Theory}
 
