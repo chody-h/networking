@@ -42,11 +42,11 @@
 
 This report details the experiment I ran and the results obtained as specified by the Network Simulation Lab in the BYU CS 460 class taught by Dr. Zappala. The project specifications can be found \href{http://cs460.byu.edu/winter-2015/labs/network-simulation}{here}.
 
-The experiment requires heavy use of a network simulator to test different network scenarios. The network simulator I used is Dr. Zappala's \href{https://github.com/zappala/bene}{Bene}, written in Python. All my simulation examples shown will be tailored towards this simulator.
+The experiment requires heavy use of a network simulator to test different network scenarios. The network simulator I used is Dr. Zappala's \href{https://github.com/zappala/bene}{Bene}, written in Python. All my simulation examples shown will be tailored towards use for that simulator.
 
 \section{Summary}
 
-The goal of the experiment was to test various network scenarios by sending packets across networks of diverse bandwidth and distances, then observing the delays incurred by the transmission, propogation, and queueing of those packets in the network. The next section describes the experiment I ran with a simple two-node network and one bi-directional link set to various bandwidths and lengths. The following section reports the experiment I ran with a three-node network and two bi-directional links. The section after that describes the portion of the experiment that was used to validate queueing theory with regards to an M/D/1 queue on a network. The final section summarizes the experiment as a whole and discusses some things I did wrong during the experiment that gave me deeper insight into how the internet works.
+The goal of the experiment was to test various network scenarios by sending packets across networks of diverse bandwidth and distances, then observing the delays incurred by the transmission, propogation, and queueing of those packets in the network. The next section describes an experiment in which a simple two-node network and one bi-directional link was set to various bandwidths and lengths. The following section reports a similar experiment with a three-node network and two bi-directional links. The section after that describes the portion of the experiment that was used to validate queueing theory with regards to an M/D/1 queue on a network. The final section summarizes the experiment as a whole and discusses a problem encountered during the experiment that gave me deeper insight into how the internet works.
 
 \section{Two Nodes}
 
@@ -246,7 +246,7 @@ By inspection, all these scenarios are nearly identical. I will only show the ra
 \end{absolutelynopagebreak}
 \vspace{5mm}
 
-Upon close inspection of sim.py, the network needs to be set up in a slightly different way than the two-node network. This network needed six different forwarding table entries compared with two entries in the two-node network. This is because there needs to be a forwarding table entry from \emph{each} node to \emph{every other} node. As you can see from the code, a forwarding table entry is added from n1 to n2 and to n3, then from n2 to n1 and to n3, then finally from n3 to n2 and to n1. The most interesting cases are from n1 to n3 and back. N1 doesn't have a direct link to n3, so it must go through n2. Thus, the forwarding table entry from n1 to n3 needs to specify that it needs to go to the address n3 has dedicated to receive from n2, and it needs to run on the first (and only) link n1 has - the link to n2.
+Upon close inspection of sim.py, the network needs to be set up in a slightly different way than the two-node network. This network needed six different forwarding table entries compared with two entries in the two-node network. This is because there needs to be a forwarding table entry from \emph{each} node to \emph{every other} node. As you can see from the code, a forwarding table entry is added from n1 to n2 and to n3, then from n2 to n1 and to n3, then finally from n3 to n2 and to n1. The most interesting cases are from n1 to n3 and back. N1 doesn't have a direct link to n3, so it must go through n2. Thus, the forwarding table entry from n1 to n3 needs to specify that it needs to go to the address n3 has dedicated to receive from n2, and it needs to run on the first (and only) link n1 has - the link to n2. Beyond that, it is up to the implementation of the node class to know how to differentiate packets that have arrived at their destination and need to be forwarded.
 
 In the first scenario of transferring a 1 MB file across a pretty fast network, the simulation calculated that the file transfer was complete at time t=8.208s. For the second scenario of transferring a 1 MB file across a very fast network, the simulation calculated that the file transfer was complete at time t=0.208008s. The unbalanced network scenario, where one link was fast and one link was slow, resulted in a file transfer time of t=31.458s.
 
@@ -277,7 +277,7 @@ t = 8.208s
 \end{absolutelynopagebreak}
 \vspace{5mm}
 
-In this scenario, the first bit of the first packet is set on the line from n1 to n2 at t=0s. It travels to n2 in one propagation length of time, arriving at n1 at t=100ms. It sits and waits at n2 for the trailing bits to arrive, which takes one duration of the transmission delay. When the whole packet has arrived at n2, the first bit is set on the line to n3 immediately, because there is no other packet ahead of it. It arrives at n3 in one more propagation length of time (accounting for emph{2*propagation} in the formula above), then must wait one more transmission length of time (accounting for emph{2*transmission} in the formula above). When the first packet is at n3, all other packets will be streaming in back-to-back at n3. The file transfer will be complete when n3 has received 999 more packets, all taking a duration equal to the transmission delay to arrive.
+In this scenario, the first bit of the first packet is set on the line from n1 to n2 at t=0s. It travels to n2 in one \emph{propagation} delay length of time, arriving at n1 at t=100ms. It sits and waits at n2 for the trailing bits to arrive, which takes one duration of the \emph{transmission} delay. When the whole packet has arrived at n2, the first bit is sent on the line to n3 immediately, because there is no other packet ahead of it. It arrives at n3 in one more \emph{propagation} length of time (accounting for \emph{2*propagation} in the formula above), then must wait one more \emph{transmission} length of time (accounting for \emph{2*transmission} in the formula above). When the first packet is at n3, all other packets will be streaming in back-to-back at n3. The file transfer will be complete when n3 has received 999 more packets, all taking a duration equal to the \emph{transmission} delay to arrive.
 
 In the second scenario, the same formula may be used as long as corrections are made to the transmission delay. The transmission delay in this scenario is 1000 times smaller because the link is 1000 times faster while the packet size and number of packets are equivalent. The only delay that doesn't shrink is the propagation delay - this stays the same as the first scenario.
 
@@ -296,11 +296,11 @@ t = 31.458s
 
 \section{Queueing Theory}
 
-The final part of my experiment was to validate queueing theory for an M/D/1 queue; that is, a single queue that receives packets as an exponential distribution and services those packets deterministically. The following enumeration describes my process for this part of the experiment. The corresponding code is shown below the enumeration. 
+The final part of my experiment was to validate queueing theory for an M/D/1 queue. An M/D/1 queue is a single queue that receives packets as an exponential distribution and services those packets deterministically. The following enumeration describes my process for this part of the experiment. The corresponding code is shown below the enumeration. 
 
 \begin{enumerate}
 
-\item I modified some existing code in Bene's \emph{delay.py} script. The only modifications I made were to run the simulation for a longer duration and to allow me to vary the utilization of the server's queue directly from the command line. 
+\item I modified some existing code in Bene's \emph{delay.py} script. The only modifications I made were to run the simulation for a longer duration and to allow me to vary the utilization of the server's queue directly from the command line. The goal of this code is to throw packets at the node at random times, rather than predetermined like in previous experiments.
 
 \item Next, I created a parser to average the queue time of each packet from \emph{delay.py}'s output. 
 
@@ -315,7 +315,7 @@ The final part of my experiment was to validate queueing theory for an M/D/1 que
 \begin{lstlisting}
 # delay.py
     #arguments
-    parser = argparse.ArgumentParser(prog='Delayed Packets', description='Helper of Project 1 of CS 460 at BYU.')
+    parser = argparse.ArgumentParser(prog='Delayed Packets')
     parser.add_argument('-u', '--util', type=float, action='store', default='all')
     args = parser.parse_args()
     utilization = args.util
@@ -449,6 +449,18 @@ The final part of my experiment was to validate queueing theory for an M/D/1 que
 \end{absolutelynopagebreak}
 \vspace{5mm}
 
+\includegraphics[width=17cm]{outputs/lab1_final.png}
+
+The final result is a graph showing the relationship between the theoretical and actual queueing delay produced by the simulator. The correlation between theory and observed is extremely high. 
+
 \section{Conclusion}
+
+This experiment confirmed the behavior of the internet that we have learned about so far in CS 460 - that is, it confirmed how propagation, transmission, and queueing delays work, and that queueing theory is valid with an M/D/1 queue.
+
+During the queueing theory portion of the experiment I ran into some trouble that gave me deeper insight on how the internet works. I left the duration to throw packets at the server at 10 seconds. This made my data vary \emph{greatly}, to the point where higher utilization levels weren't anywhere near the theoretical curve. I attempted to run this experiment multiple times to get more data points to average. This improved my data slightly but not to the point where I'd feel comfortable saying this experiment verified queueing theory. After looking through the code, I changed the duration from 10 to 100 seconds. This led to significant improvement. I increased it further to 1000 and got the results shown above. 
+
+I pondered why running the experiment multiple times would not improve results but increasing the duration would. I came to the conclusion that by running multiple iterations, I was allowing the server's queue to clear. Just by periodically allowing the server's queue to clear every 10 seconds, the queue time at higher utilizations was reduced more than 50\%.
+
+This could be an interesting area of research for another time: what is the relationship between periodic breaks and queue times at various utilizations? How high can utilization of servers be pushed if they are periodically allowed breaks? Would this be more efficient or effective than keeping utilizations low?
 
 \end{document}
