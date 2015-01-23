@@ -101,19 +101,16 @@ The total delay is the sum of all three of those delays.
 The following table shows each simulation's output of each packet's identifier, the time it was created, and the time it was received.
 
 \vspace{0.5cm}
-\begin{tabular}{lcc}
+\begin{tabular}{lccc}
   \toprule
-  ID & Time Created & Time Receieved\\
+  Scenario & Packet ID & Time Created & Time Receieved\\
   \midrule
-  Scenario 1: & & \\
-  1 & 0s & 1.008s \\
-  Scenario 2: & & \\
-  1 & 0s & 80.01s \\
-  Scenario 3: & & \\
-  1 & 0s & 0.018s \\
-  2 & 0s & 0.026s \\
-  3 & 0s & 0.034s \\
-  4 & 2s & 2.018s \\
+  First & 1 & 0s & 1.008s \\
+  Second & 1 & 0s & 80.01s \\
+  Third & 1 & 0s & 0.018s \\
+  Third & 2 & 0s & 0.026s \\
+  Third & 3 & 0s & 0.034s \\
+  Third & 4 & 2s & 2.018s \\
   \bottomrule
   Raw Data
 \end{tabular}
@@ -228,21 +225,36 @@ In the first scenario of transferring a 1 MB file across a pretty fast network, 
 \vspace{0.5cm}
 \begin{tabular}{lcc}
   \toprule
-  ID & Time Created & Time Receieved\\
+  Scenario & File Transfer Time\\
   \midrule
-  Scenario 1: & & \\
-  1 & 0s & 1.008s \\
-  Scenario 2: & & \\
-  1 & 0s & 80.01s \\
-  Scenario 3: & & \\
-  1 & 0s & 0.018s \\
-  2 & 0s & 0.026s \\
-  3 & 0s & 0.034s \\
-  4 & 2s & 2.018s \\
+  1 & 8.208s \\
+  2 & 0.208008s \\
+  3 & 31.458s \\
   \bottomrule
-  Raw Data
 \end{tabular}
 \vspace{0.5cm}
+
+These values correlate exactly with the answers I calculated in the first homework assignment. The equation used to calculate the delay of the first scenario with a pretty fast network is:
+
+\begin{lstlisting}
+t = (2*transmission + 2*propagation) + 999 * transmission
+  = (2*(8000 bits / 1000000 bps) + 0.200s) + 999 * (8000 bits / 1000000 bps))
+  = (0.216s) + 999 * 0.008s
+t = 8.208s
+\end{lstlisting}
+
+In this scenario, the first bit of the first packet is set on the line from n1 to n2 at t=0s. It travels to n2 in one propagation length of time, arriving at n1 at t=100ms. It sits and waits at n2 for the trailing bits to arrive, which takes one duration of the transmission delay. When the whole packet has arrived at n2, the first bit is set on the line to n3 immediately, because there is no other packet ahead of it. It arrives at n3 in one more propagation length of time (accounting for emph{2*propagation} in the formula above), then must wait one more transmission length of time (accounting for emph{2*transmission} in the formula above). When the first packet is at n3, all other packets will be streaming in back-to-back at n3. The file transfer will be complete when n3 has received 999 more packets, all taking a duration equal to the transmission delay to arrive.
+
+In the second scenario, the same formula may be used as long as corrections are made to the transmission delay. The transmission delay in this scenario is 1000 times smaller because the link is 1000 times faster while the packet size and number of packets are equivalent. The only delay that doesn't shrink is the propagation delay - this stays the same as the first scenario.
+
+In the third scenario, a new variable is introduced: the queueing delay. Because the second link has lower bandwidth, n2 will not be able to transmit packets as fast as it receives them. N2 will need to store incoming packets in a queue so that it will not lose packets if it's still busy transmitting other packets to n3. I derived the formula to calculate the queueing delay in my homework and will not re-derive it here. The following block shows the basic formula representing this scenario as well as the calculated answer, which is equal to the value received by the simulator.
+
+\begin{lstlisting}
+queue(n) = L(K-1)(1/Rslow - 1/Rfast)
+t = 1000 * transfast + prop + queue(1000) + 1000 * transslow + prop
+  = 1000 * 0.008s + 0.1s + 23.226750s + 1000 * 0.03125s + 0.1s
+t = 31.458s
+\end{lstlisting}
 
 \section{Queueing Theory}
 
