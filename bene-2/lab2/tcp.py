@@ -1,3 +1,4 @@
+import time
 import sys
 sys.path.append('..')
 
@@ -29,6 +30,14 @@ class TCP(Connection):
         self.timer = 0
         # timeout duration in seconds
         self.timeout = 1
+        # dynamic recalculate timeout
+        self.rto = 1
+        # minimum rto
+        self.min_rto = 0.2
+        # alpha for calculating retranmission timer
+        self.alpha = 0.125
+        # times certain packets were sent
+        self.packet_times = {}
 
         ### Receiver functionality
 
@@ -62,8 +71,6 @@ class TCP(Connection):
             else:
                 (seg_data,i) = self.send_buffer.get(self.mss)
             self.send_packet(seg_data,i)
-            if not self.timer:
-                self.timer = Sim.scheduler.add(delay=self.timeout, event='retransmit', handler=self.retransmit)
 
     def send_packet(self,data,sequence):
         packet = TCPPacket(source_address=self.source_address,
@@ -79,17 +86,23 @@ class TCP(Connection):
 
         # set a timer
         if not self.timer:
-            self.timer = Sim.scheduler.add(delay=self.timeout, event='retransmit', handler=self.retransmit)
+            self.timer = Sim.scheduler.add(delay=self.rto, event='retransmit', handler=self.retransmit)
+        
+        # record when it was sent
+        self.add_to_timer(sequence)
 
     def handle_ack(self,packet):
         ''' Handle an incoming ACK. '''
         self.trace("%s (%d) Incoming ACK received from %d for %d" % (self.node.hostname, packet.destination_address, packet.source_address, packet.ack_number))
-        self.restart_timer()
         self.sequence = packet.ack_number
         self.send_buffer.slide(packet.ack_number)
         if self.send_buffer.outstanding() == 0:
             self.cancel_timer()
             self.send("")
+        else:
+            self.restart_timer()
+        self.recalculate_timeout(packet.sequence)
+
 
     def retransmit(self,event):
         ''' Retransmit data. '''
@@ -97,6 +110,7 @@ class TCP(Connection):
         self.timer = Sim.scheduler.add(delay=self.timeout, event='retransmit', handler=self.retransmit)
         (data, i) = self.send_buffer.resend(1000)
         self.send_packet(data, i)
+        self.remove_from_timer(i)
 
     def cancel_timer(self):
         ''' Cancel the timer. '''
@@ -110,7 +124,26 @@ class TCP(Connection):
         if self.timer:
             Sim.scheduler.cancel(self.timer)
             self.timer = None
-        self.timer = Sim.scheduler.add(delay=self.timeout, event='retransmit', handler=self.retransmit)
+        self.timer = Sim.scheduler.add(delay=self.rto, event='retransmit', handler=self.retransmit)
+
+    def recalculate_timeout(self, packet_num):
+        time_between = self.remove_from_timer(packet_num)
+        if time_between == -1:
+            self.rto = self.timeout
+        else:
+            calc = (1 - self.alpha)*self.rto + self.alpha*time_between
+            self.rto = max(self.min_rto, calc)
+
+    def add_to_timer(self, packet_num):
+        self.packet_times[packet_num] = time.time()
+
+    def remove_from_timer(self, packet_num):
+        try:
+            diff = time.time() - self.packet_times[packet_num]
+            del self.packet_times[packet_num]
+            return diff
+        except KeyError:
+            return -1
 
 
     ''' Receiver '''
@@ -124,15 +157,15 @@ class TCP(Connection):
         (data,start) = self.receive_buffer.get()
         self.app.receive_data(data)
         self.ack = start + len(data)
-        self.send_ack()
+        self.send_ack(packet.sequence)
 
-    def send_ack(self):
+    def send_ack(self, old_seq):
         ''' Send an ack. '''
         packet = TCPPacket(source_address=self.source_address,
                            source_port=self.source_port,
                            destination_address=self.destination_address,
                            destination_port=self.destination_port,
-                           sequence=self.sequence,ack_number=self.ack)
+                           sequence=old_seq,ack_number=self.ack)
         # send the packet
         self.trace("%s (%d) sending TCP ACK to %d for %d" % (self.node.hostname,self.source_address,self.destination_address,packet.ack_number))
         self.transport.send_packet(packet)
