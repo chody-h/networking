@@ -62,7 +62,8 @@ class TCP(Connection):
             else:
                 (seg_data,i) = self.send_buffer.get(self.mss)
             self.send_packet(seg_data,i)
-            self.timer = Sim.scheduler.add(delay=self.timeout, event='retransmit', handler=self.retransmit)
+            if not self.timer:
+                self.timer = Sim.scheduler.add(delay=self.timeout, event='retransmit', handler=self.retransmit)
 
     def send_packet(self,data,sequence):
         packet = TCPPacket(source_address=self.source_address,
@@ -82,15 +83,20 @@ class TCP(Connection):
 
     def handle_ack(self,packet):
         ''' Handle an incoming ACK. '''
+        self.trace("%s (%d) Incoming ACK received from %d for %d" % (self.node.hostname, packet.destination_address, packet.source_address, packet.ack_number))
+        self.restart_timer()
         self.sequence = packet.ack_number
         self.send_buffer.slide(packet.ack_number)
-        self.cancel_timer()
-        self.send("")
+        if self.send_buffer.outstanding() == 0:
+            self.cancel_timer()
+            self.send("")
 
     def retransmit(self,event):
         ''' Retransmit data. '''
         self.trace("%s (%d) retransmission timer fired" % (self.node.hostname,self.source_address))
-
+        self.timer = Sim.scheduler.add(delay=self.timeout, event='retransmit', handler=self.retransmit)
+        (data, i) = self.send_buffer.resend(1000)
+        self.send_packet(data, i)
 
     def cancel_timer(self):
         ''' Cancel the timer. '''
@@ -98,6 +104,14 @@ class TCP(Connection):
             return
         Sim.scheduler.cancel(self.timer)
         self.timer = None
+
+    def restart_timer(self):
+        ''' Cancel the timer & create a new one. '''
+        if self.timer:
+            Sim.scheduler.cancel(self.timer)
+            self.timer = None
+        self.timer = Sim.scheduler.add(delay=self.timeout, event='retransmit', handler=self.retransmit)
+
 
     ''' Receiver '''
 

@@ -1,0 +1,65 @@
+0 n1 (1) sending TCP segment to 2 for 0
+0 n1 (1) sending TCP segment to 2 for 1000
+0 n1 (1) sending TCP segment to 2 for 2000
+0.0108 n2 (2) received TCP segment from 1 for 1000
+0.0108 application got 0 bytes
+0.0108 n2 (2) sending TCP ACK to 1 for 0
+1.0 n1 (1) retransmission timer fired
+1.0 n1 (1) sending TCP segment to 2 for 0
+2.0 n1 (1) retransmission timer fired
+2.0 n1 (1) sending TCP segment to 2 for 0
+2.0108 n2 (2) received TCP segment from 1 for 0
+2.0108 application got 2000 bytes
+2.0108 n2 (2) sending TCP ACK to 1 for 2000
+2.0208 n1 (1) Incoming ACK received from 2 for 2000
+2.0208 n1 (1) sending TCP segment to 2 for 2000
+2.0208 n1 (1) sending TCP segment to 2 for 3000
+2.0208 n1 (1) sending TCP segment to 2 for 4000
+2.0316 n2 (2) received TCP segment from 1 for 2000
+2.0316 application got 1000 bytes
+2.0316 n2 (2) sending TCP ACK to 1 for 3000
+2.0324 n2 (2) received TCP segment from 1 for 3000
+2.0324 application got 1000 bytes
+2.0324 n2 (2) sending TCP ACK to 1 for 4000
+2.0332 n2 (2) received TCP segment from 1 for 4000
+2.0332 application got 1000 bytes
+2.0332 n2 (2) sending TCP ACK to 1 for 5000
+2.0416 n1 (1) Incoming ACK received from 2 for 3000
+2.0424 n1 (1) Incoming ACK received from 2 for 4000
+2.0432 n1 (1) Incoming ACK received from 2 for 5000
+2.0432 n1 (1) sending TCP segment to 2 for 5000
+2.0432 n1 (1) sending TCP segment to 2 for 6000
+2.0432 n1 (1) sending TCP segment to 2 for 7000
+2.054 n2 (2) received TCP segment from 1 for 5000
+2.054 application got 1000 bytes
+2.054 n2 (2) sending TCP ACK to 1 for 6000
+2.0548 n2 (2) received TCP segment from 1 for 6000
+2.0548 application got 1000 bytes
+2.0548 n2 (2) sending TCP ACK to 1 for 7000
+3.0432 n1 (1) retransmission timer fired
+3.0432 n1 (1) sending TCP segment to 2 for 5000
+3.054 n2 (2) received TCP segment from 1 for 5000
+3.054 application got 0 bytes
+3.054 n2 (2) sending TCP ACK to 1 for 7000
+3.064 n1 (1) Incoming ACK received from 2 for 7000
+3.064 n1 (1) sending TCP segment to 2 for 7000
+3.064 n1 (1) sending TCP segment to 2 for 8000
+3.064 n1 (1) sending TCP segment to 2 for 9000
+3.0748 n2 (2) received TCP segment from 1 for 7000
+3.0748 application got 1000 bytes
+3.0748 n2 (2) sending TCP ACK to 1 for 8000
+3.0756 n2 (2) received TCP segment from 1 for 8000
+3.0756 application got 1000 bytes
+3.0756 n2 (2) sending TCP ACK to 1 for 9000
+3.0764 n2 (2) received TCP segment from 1 for 9000
+3.0764 application got 1000 bytes
+3.0764 n2 (2) sending TCP ACK to 1 for 10000
+3.0856 n1 (1) Incoming ACK received from 2 for 9000
+4.0856 n1 (1) retransmission timer fired
+4.0856 n1 (1) sending TCP segment to 2 for 9000
+4.0964 n2 (2) received TCP segment from 1 for 9000
+4.0964 application got 0 bytes
+4.0964 n2 (2) sending TCP ACK to 1 for 10000
+4.1064 n1 (1) Incoming ACK received from 2 for 10000
+
+File transfer correct!
