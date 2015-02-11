@@ -30,14 +30,18 @@ class TCP(Connection):
         self.timer = 0
         # timeout duration in seconds
         self.timeout = 1
-        # dynamic recalculate timeout
-        self.rto = 1
-        # minimum rto
-        self.min_rto = 0.2
+        # dynamic round trip timer
+        self.rtt = 1
+        # minimum rtt
+        self.min_rtt = 0.2
         # alpha for calculating retranmission timer
         self.alpha = 0.125
         # times certain packets were sent
         self.packet_times = {}
+        # standard deviation of round trip time
+        self.dev_rtt = 0
+        # beta for calculating std deviation
+        self.beta = 0.25
 
         ### Receiver functionality
 
@@ -86,7 +90,7 @@ class TCP(Connection):
 
         # set a timer
         if not self.timer:
-            self.timer = Sim.scheduler.add(delay=self.rto, event='retransmit', handler=self.retransmit)
+            self.timer = Sim.scheduler.add(delay=self.rtt, event='retransmit', handler=self.retransmit)
         
         # record when it was sent
         self.add_to_timer(sequence)
@@ -96,12 +100,12 @@ class TCP(Connection):
         self.trace("%s (%d) Incoming ACK received from %d for %d" % (self.node.hostname, packet.destination_address, packet.source_address, packet.ack_number))
         self.sequence = packet.ack_number
         self.send_buffer.slide(packet.ack_number)
+        self.recalculate_timeout(packet.sequence)
         if self.send_buffer.outstanding() == 0:
             self.cancel_timer()
             self.send("")
         else:
             self.restart_timer()
-        self.recalculate_timeout(packet.sequence)
 
 
     def retransmit(self,event):
@@ -124,15 +128,16 @@ class TCP(Connection):
         if self.timer:
             Sim.scheduler.cancel(self.timer)
             self.timer = None
-        self.timer = Sim.scheduler.add(delay=self.rto, event='retransmit', handler=self.retransmit)
+        self.timer = Sim.scheduler.add(delay=self.rtt, event='retransmit', handler=self.retransmit)
 
     def recalculate_timeout(self, packet_num):
         time_between = self.remove_from_timer(packet_num)
         if time_between == -1:
-            self.rto = self.timeout
+            self.rtt = self.timeout
         else:
-            calc = (1 - self.alpha)*self.rto + self.alpha*time_between
-            self.rto = max(self.min_rto, calc)
+            est = (1-self.alpha)*self.rtt + self.alpha*time_between
+            self.dev_rtt = (1-self.beta)*self.dev_rtt + self.beta*abs(time_between-est)
+            self.rtt = min(max(self.min_rtt, est+4*self.dev_rtt), self.timeout)
 
     def add_to_timer(self, packet_num):
         self.packet_times[packet_num] = time.time()

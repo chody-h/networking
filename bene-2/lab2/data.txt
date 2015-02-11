@@ -1,0 +1,18 @@
+Compute the throughput of the transfer as the total bits sent divided by the total time to send the file, measured from the start of the simulation to when the last segment is received. Compute the average queueing delay of all segments sent. Plot the throughput and the average queueing delay as a function of the window size, on two separate graphs.
+
+Throughput = total bits sent / total time to send file
+x = window size, y = throughput
+x = window size, y = queueing delay
+
+
+total bits sent 	514,520 bytes		
+
+
+window size		time to send
+
+01,000			20.511616
+02,000			10.471616
+05,000			04.431616
+10,000			01.451616
+15,000			01.111616
+20,000			00.931616
