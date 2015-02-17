@@ -11,7 +11,7 @@ class Plotter:
         # x
         self.window = [1000, 2000, 5000, 10000, 15000, 20000]
         # y1
-        self.throughput = [200675,393078,928817,2835571,3702861,4418301]
+        self.throughput = [0.201,0.393,0.929,2.836,3.703,4.418]
         # y2
         self.avg_queue = [4.880,2.441,0.974,0.250,0.168,0.124]
 
@@ -23,10 +23,10 @@ class Plotter:
         plot(self.window, self.throughput, label='Throughput')
 
         # set up the axis
-        xlabel('Window Size in Bytes')
-        ax.set_xticks(np.arange(0,20000,2000))
-        ylabel('Average Queue Duration')
-        ax.set_yticks(np.arange(0,5000000,500000))
+        xlabel('Window Size (bytes)')
+        ax.set_xticks(np.arange(0,22000,2000))
+        ylabel('Throughput (Mb/sec)')
+        ax.set_yticks(np.arange(0,5.5,.5))
 
         # create a legend
         # legend = ax.legend(loc='upper left', shadow=True)
@@ -42,10 +42,10 @@ class Plotter:
         plot(self.window, self.avg_queue, label='Average Queue per Packet')
 
         # set up the axis
-        xlabel('Average Queue Duration per Packet in ms')
-        ax.set_xticks(np.arange(0,20000,2000))
-        ylabel('Average Queue Duration')
-        ax.set_yticks(np.arange(0,5,.5))
+        xlabel('Window Size (bytes)')
+        ax.set_xticks(np.arange(0,22000,2000))
+        ylabel('Average Queue Duration (ms)')
+        ax.set_yticks(np.arange(0,5.5,.5))
 
         # create a legend
         # legend = ax.legend(loc='upper left', shadow=True)
