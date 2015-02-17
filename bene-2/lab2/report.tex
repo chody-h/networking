@@ -138,7 +138,7 @@ The following graph shows the average queue duration as a function of window siz
 
 \includegraphics[width=17cm]{outputs/lab2_queue.png}
 
-The queue time increases exponentially as the window size decreases. This is the expected output because if window size is small, the sender will be holding the data for a longer period of time in its buffer.
+The queue time increases exponentially as the window size decreases. This is the expected output because if window size is small, the sender will be holding the data for a longer period of time in its buffer as it waits to hear an ack back from each individual packet sent.
 
 The following graph shows the calculated throughput of the network as window size increases. The throughput was determined as the number of bits sent (the file size) divided by the time to send in seconds.
 
