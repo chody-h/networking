@@ -136,13 +136,9 @@ class TCP(Connection):
         time_between = self.remove_from_timer(packet_num)
         if time_between == -1:
             self.rtt = self.timeout
-            # print "New rtt: " + str(self.rtt) + "\nstddev: " + str(self.dev_rtt)
         else:
             est = (1-self.alpha)*self.rtt + self.alpha*time_between
             self.rtt = min(max(self.min_rtt, est), self.timeout)
-            # self.dev_rtt = (1-self.beta)*self.dev_rtt + self.beta*abs(time_between-est)
-            # self.rtt = min(max(self.min_rtt, est+4*self.dev_rtt), self.timeout)
-            # print "New rtt: " + str(self.rtt) + "\nest: " + str(est) + "\nstddev: " + str(self.dev_rtt) + "\ntime between: " + str(time_between)
 
     def add_to_timer(self, packet_num):
         self.packet_times[packet_num] = time.time()

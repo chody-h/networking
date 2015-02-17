@@ -78,6 +78,10 @@ All outputs received the message \"File transfer correct!\" as the last line, in
 
 \section{Dynamic Retransmission Timer}
 
+The dynamic retransmission timer was implemented by recalculating the timeout value whenever an ack was received and resetting the timeout value whenever a retransmission needed to occur. The timeout value was obtained by keeping track of the interval between when a packet was sent and that packet's ack was received. That value was multiplied by an alpha value and added to the product of 1-alpha and the old retransmission timer. The timer was then set to be that value if it was between the minimum and maximum times, which are 200 ms and 1 second, respectively.
+
+The following table shows the updated file transfer times. This table should be compared directly to the corresponding table in the previous section.
+
 \vspace{0.5cm}
 \begin{absolutelynopagebreak}
 \begin{tabular}{lcc}
@@ -92,11 +96,43 @@ All outputs received the message \"File transfer correct!\" as the last line, in
   10,000 & 00\% & internet-architecture.pdf & 1.451616 s\\
   10,000 & 10\% & internet-architecture.pdf & 26.480791 s\\
   10,000 & 20\% & internet-architecture.pdf & 46.874493 s\\
-  10,000 & 50\% & internet-architecture.pdf & 395.76971 s\\
+  10,000 & 50\% & internet-architecture.pdf & 395.769710 s\\
   \bottomrule
 \end{tabular}
 \end{absolutelynopagebreak}
 \vspace{0.5cm}
+
+By inspection, the files transferred significantly faster, especially when loss is kept low. It is worth observing that the file transfer did not speed up significantly with the pdf file on a 50\% loss network. I theorize this is because so many packets were lost that the retransmission timer was kept near the maximum value. File transfer speed saw the most increase (a 100\% gain on 10 and 20 percent loss networks) from a dynamic transmission timer when loss is kept low, no more than around 20\%. 
+
+The following table shows output from a script I wrote to parse the output to find the average wait time between a packet being sent and a retransmission timer firing.
+
+\vspace{0.5cm}
+\begin{absolutelynopagebreak}
+\begin{tabular}{lcc}
+  \toprule
+  Window Size & Loss Rates & File Name & Average Retransmission Time\\
+  \midrule
+  3000 & 00\% & test.txt & 0 s\\
+  3000 & 10\% & test.txt & 0.658462 s\\
+  3000 & 20\% & test.txt & 0.780442 s\\
+  3000 & 50\% & test.txt & 0.953029 s\\
+
+  10,000 & 00\% & internet-architecture.pdf & 0 s\\
+  10,000 & 10\% & internet-architecture.pdf & 0.4432958 s\\
+  10,000 & 20\% & internet-architecture.pdf & 0.5779536 s\\
+  10,000 & 50\% & internet-architecture.pdf & 0.9259593 s\\
+  \bottomrule
+\end{tabular}
+\end{absolutelynopagebreak}
+\vspace{0.5cm}
+
+As can be seen, the retransmission timer approaches 0.2 seconds as loss approaches 0\%, and the timer approaches 1 second as loss increases, as theorized.
+
+\section{Experiments}
+
+The experiments conducted set the bandwidth of a two-node network to 10 Mbps with a propagation delay of 10 ms, a queue size of 100, and a loss rate of 0\%. I then transferred the \emph{internet-architecture.pdf} file using window dizes of 1000, 2000, 5000, 10000, 15000, and 20000 bytes. I computed teh throughput of the transfer as the total bits sent divided by the total time to send the file, measured from the start of the simulation to when the last segment was received. I computed the average queueing delay of all segments sent, then plotted the throughput and the average queueing delay as a function of the window size on two separate graphs.
+
+The following graph shows 
 
 \section{Appendix A: Reliable Transfer Code}
 
