@@ -1,4 +1,6 @@
-rm -rf outputs/*
+rm -rf outputs/output1-*
+rm -rf outputs/output2-*
+rm -rf outputs/output3-*
 
 python transfer.py -l 0.0 -w 3000 -f "test.txt" > outputs/output1-0.txt
 python transfer.py -l 0.1 -w 3000 -f "test.txt" > outputs/output1-1.txt
