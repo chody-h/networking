@@ -16,13 +16,13 @@ class TCP(Connection):
 
         ### Sender functionality
 
-        # send window; represents the total number of bytes that may
-        # be outstanding at one time
-        self.window = window
         # send buffer
         self.send_buffer = SendBuffer()
         # maximum segment size, in bytes
         self.mss = 1000
+        # send window; represents the total number of bytes that may
+        # be outstanding at one time. is now dynamic (TCP Tahoe)
+        self.window = 1 * self.mss
         # largest sequence number that has been ACKed so far; represents
         # the next sequence number the client expects to receive
         self.sequence = 0
@@ -42,6 +42,10 @@ class TCP(Connection):
         self.dev_rtt = 0
         # beta for calculating std deviation
         self.beta = 0.25
+        # threshold for TCP Tahoe congestion window
+        self.threshold = 100000
+        # keep track of duplicate ACKs
+        self.duplicates = 0
 
         ### Receiver functionality
 
@@ -98,7 +102,10 @@ class TCP(Connection):
     def handle_ack(self,packet):
         ''' Handle an incoming ACK. '''
         self.trace("%s (%d) Incoming ACK received from %d for %d" % (self.node.hostname, packet.destination_address, packet.source_address, packet.ack_number))
+        prev_seq = self.sequence
         self.sequence = packet.ack_number
+        # increase window by the amount of data acked
+        self.increase_window(self.sequence-prev_seq)
         self.send_buffer.slide(packet.ack_number)
         self.recalculate_timeout(packet.sequence)
         if self.send_buffer.outstanding() == 0:
@@ -107,10 +114,10 @@ class TCP(Connection):
         else:
             self.restart_timer()
 
-
     def retransmit(self,event):
         ''' Retransmit data. '''
-        self.trace("%s (%d) retransmission timer fired" % (self.node.hostname,self.source_address))
+        self.trace("%s (%d) retransmission fired" % (self.node.hostname,self.source_address))
+        self.loss_event()
         self.rtt = 1
         self.dev_rtt = 0
         self.timer = Sim.scheduler.add(delay=self.timeout, event='retransmit', handler=self.retransmit)
@@ -150,6 +157,26 @@ class TCP(Connection):
             return diff
         except KeyError:
             return -1
+
+    def loss_event(self):
+        self.threshold = max(self.window/2, self.mss)
+        self.window = 1 * self.mss
+
+    # slow start & AI
+    def increase_window(self, amount):
+        # loss event check
+        self.duplicates += 1
+        if amount == 0 and self.duplicates >= 4:
+            self.loss_event()
+        else:
+            self.duplicates = 0
+
+            # AI
+            if amount + self.window >= self.threshold:
+                self.window += (self.mss * amount / self.window)
+            # slow start
+            else:
+                self.window += amount
 
 
     ''' Receiver '''

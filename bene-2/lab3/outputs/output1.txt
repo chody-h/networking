@@ -1,0 +1,502 @@
+0 n1 (1) sending TCP segment to 2 for 0
+0.0108 n2 (2) received TCP segment from 1 for 0
+0.0108 application got 1000 bytes
+0.0108 n2 (2) sending TCP ACK to 1 for 1000
+0.0208 n1 (1) Incoming ACK received from 2 for 1000
+0.0208 n1 (1) sending TCP segment to 2 for 1000
+0.0208 n1 (1) sending TCP segment to 2 for 2000
+0.0316 n2 (2) received TCP segment from 1 for 1000
+0.0316 application got 1000 bytes
+0.0316 n2 (2) sending TCP ACK to 1 for 2000
+0.0324 n2 (2) received TCP segment from 1 for 2000
+0.0324 application got 1000 bytes
+0.0324 n2 (2) sending TCP ACK to 1 for 3000
+0.0416 n1 (1) Incoming ACK received from 2 for 2000
+0.0424 n1 (1) Incoming ACK received from 2 for 3000
+0.0424 n1 (1) sending TCP segment to 2 for 3000
+0.0424 n1 (1) sending TCP segment to 2 for 4000
+0.0424 n1 (1) sending TCP segment to 2 for 5000
+0.0424 n1 (1) sending TCP segment to 2 for 6000
+0.0532 n2 (2) received TCP segment from 1 for 3000
+0.0532 application got 1000 bytes
+0.0532 n2 (2) sending TCP ACK to 1 for 4000
+0.054 n2 (2) received TCP segment from 1 for 4000
+0.054 application got 1000 bytes
+0.054 n2 (2) sending TCP ACK to 1 for 5000
+0.0548 n2 (2) received TCP segment from 1 for 5000
+0.0548 application got 1000 bytes
+0.0548 n2 (2) sending TCP ACK to 1 for 6000
+0.0556 n2 (2) received TCP segment from 1 for 6000
+0.0556 application got 1000 bytes
+0.0556 n2 (2) sending TCP ACK to 1 for 7000
+0.0632 n1 (1) Incoming ACK received from 2 for 4000
+0.064 n1 (1) Incoming ACK received from 2 for 5000
+0.0648 n1 (1) Incoming ACK received from 2 for 6000
+0.0656 n1 (1) Incoming ACK received from 2 for 7000
+0.0656 n1 (1) sending TCP segment to 2 for 7000
+0.0656 n1 (1) sending TCP segment to 2 for 8000
+0.0656 n1 (1) sending TCP segment to 2 for 9000
+0.0656 n1 (1) sending TCP segment to 2 for 10000
+0.0656 n1 (1) sending TCP segment to 2 for 11000
+0.0656 n1 (1) sending TCP segment to 2 for 12000
+0.0656 n1 (1) sending TCP segment to 2 for 13000
+0.0656 n1 (1) sending TCP segment to 2 for 14000
+0.0764 n2 (2) received TCP segment from 1 for 7000
+0.0764 application got 1000 bytes
+0.0764 n2 (2) sending TCP ACK to 1 for 8000
+0.0772 n2 (2) received TCP segment from 1 for 8000
+0.0772 application got 1000 bytes
+0.0772 n2 (2) sending TCP ACK to 1 for 9000
+0.078 n2 (2) received TCP segment from 1 for 9000
+0.078 application got 1000 bytes
+0.078 n2 (2) sending TCP ACK to 1 for 10000
+0.0788 n2 (2) received TCP segment from 1 for 10000
+0.0788 application got 1000 bytes
+0.0788 n2 (2) sending TCP ACK to 1 for 11000
+0.0796 n2 (2) received TCP segment from 1 for 11000
+0.0796 application got 1000 bytes
+0.0796 n2 (2) sending TCP ACK to 1 for 12000
+0.0804 n2 (2) received TCP segment from 1 for 12000
+0.0804 application got 1000 bytes
+0.0804 n2 (2) sending TCP ACK to 1 for 13000
+0.0812 n2 (2) received TCP segment from 1 for 13000
+0.0812 application got 1000 bytes
+0.0812 n2 (2) sending TCP ACK to 1 for 14000
+0.082 n2 (2) received TCP segment from 1 for 14000
+0.082 application got 1000 bytes
+0.082 n2 (2) sending TCP ACK to 1 for 15000
+0.0864 n1 (1) Incoming ACK received from 2 for 8000
+0.0872 n1 (1) Incoming ACK received from 2 for 9000
+0.088 n1 (1) Incoming ACK received from 2 for 10000
+0.0888 n1 (1) Incoming ACK received from 2 for 11000
+0.0896 n1 (1) Incoming ACK received from 2 for 12000
+0.0904 n1 (1) Incoming ACK received from 2 for 13000
+0.0912 n1 (1) Incoming ACK received from 2 for 14000
+0.092 n1 (1) Incoming ACK received from 2 for 15000
+0.092 n1 (1) sending TCP segment to 2 for 15000
+0.092 n1 (1) sending TCP segment to 2 for 16000
+0.092 n1 (1) sending TCP segment to 2 for 17000
+0.092 n1 (1) sending TCP segment to 2 for 18000
+0.092 n1 (1) sending TCP segment to 2 for 19000
+0.092 n1 (1) sending TCP segment to 2 for 20000
+0.092 n1 (1) sending TCP segment to 2 for 21000
+0.092 n1 (1) sending TCP segment to 2 for 22000
+0.092 n1 (1) sending TCP segment to 2 for 23000
+0.092 n1 (1) sending TCP segment to 2 for 24000
+0.092 n1 (1) sending TCP segment to 2 for 25000
+0.092 n1 (1) sending TCP segment to 2 for 26000
+0.092 n1 (1) sending TCP segment to 2 for 27000
+0.092 n1 (1) sending TCP segment to 2 for 28000
+0.092 n1 (1) sending TCP segment to 2 for 29000
+0.092 n1 (1) sending TCP segment to 2 for 30000
+0.1028 n2 (2) received TCP segment from 1 for 15000
+0.1028 application got 1000 bytes
+0.1028 n2 (2) sending TCP ACK to 1 for 16000
+0.1036 n2 (2) received TCP segment from 1 for 16000
+0.1036 application got 1000 bytes
+0.1036 n2 (2) sending TCP ACK to 1 for 17000
+0.1044 n2 (2) received TCP segment from 1 for 17000
+0.1044 application got 1000 bytes
+0.1044 n2 (2) sending TCP ACK to 1 for 18000
+0.1052 n2 (2) received TCP segment from 1 for 18000
+0.1052 application got 1000 bytes
+0.1052 n2 (2) sending TCP ACK to 1 for 19000
+0.106 n2 (2) received TCP segment from 1 for 19000
+0.106 application got 1000 bytes
+0.106 n2 (2) sending TCP ACK to 1 for 20000
+0.1068 n2 (2) received TCP segment from 1 for 20000
+0.1068 application got 1000 bytes
+0.1068 n2 (2) sending TCP ACK to 1 for 21000
+0.1076 n2 (2) received TCP segment from 1 for 21000
+0.1076 application got 1000 bytes
+0.1076 n2 (2) sending TCP ACK to 1 for 22000
+0.1084 n2 (2) received TCP segment from 1 for 22000
+0.1084 application got 1000 bytes
+0.1084 n2 (2) sending TCP ACK to 1 for 23000
+0.1092 n2 (2) received TCP segment from 1 for 23000
+0.1092 application got 1000 bytes
+0.1092 n2 (2) sending TCP ACK to 1 for 24000
+0.11 n2 (2) received TCP segment from 1 for 24000
+0.11 application got 1000 bytes
+0.11 n2 (2) sending TCP ACK to 1 for 25000
+0.1108 n2 (2) received TCP segment from 1 for 25000
+0.1108 application got 1000 bytes
+0.1108 n2 (2) sending TCP ACK to 1 for 26000
+0.1116 n2 (2) received TCP segment from 1 for 26000
+0.1116 application got 1000 bytes
+0.1116 n2 (2) sending TCP ACK to 1 for 27000
+0.1124 n2 (2) received TCP segment from 1 for 27000
+0.1124 application got 1000 bytes
+0.1124 n2 (2) sending TCP ACK to 1 for 28000
+0.1128 n1 (1) Incoming ACK received from 2 for 16000
+0.1132 n2 (2) received TCP segment from 1 for 28000
+0.1132 application got 1000 bytes
+0.1132 n2 (2) sending TCP ACK to 1 for 29000
+0.1136 n1 (1) Incoming ACK received from 2 for 17000
+0.114 n2 (2) received TCP segment from 1 for 29000
+0.114 application got 1000 bytes
+0.114 n2 (2) sending TCP ACK to 1 for 30000
+0.1144 n1 (1) Incoming ACK received from 2 for 18000
+0.1148 n2 (2) received TCP segment from 1 for 30000
+0.1148 application got 1000 bytes
+0.1148 n2 (2) sending TCP ACK to 1 for 31000
+0.1152 n1 (1) Incoming ACK received from 2 for 19000
+0.116 n1 (1) Incoming ACK received from 2 for 20000
+0.1168 n1 (1) Incoming ACK received from 2 for 21000
+0.1176 n1 (1) Incoming ACK received from 2 for 22000
+0.1184 n1 (1) Incoming ACK received from 2 for 23000
+0.1192 n1 (1) Incoming ACK received from 2 for 24000
+0.12 n1 (1) Incoming ACK received from 2 for 25000
+0.1208 n1 (1) Incoming ACK received from 2 for 26000
+0.1216 n1 (1) Incoming ACK received from 2 for 27000
+0.1224 n1 (1) Incoming ACK received from 2 for 28000
+0.1232 n1 (1) Incoming ACK received from 2 for 29000
+0.124 n1 (1) Incoming ACK received from 2 for 30000
+0.1248 n1 (1) Incoming ACK received from 2 for 31000
+0.1248 n1 (1) sending TCP segment to 2 for 31000
+0.1248 n1 (1) sending TCP segment to 2 for 32000
+0.1248 n1 (1) sending TCP segment to 2 for 33000
+0.1248 n1 (1) sending TCP segment to 2 for 34000
+0.1248 n1 (1) sending TCP segment to 2 for 35000
+0.1248 n1 (1) sending TCP segment to 2 for 36000
+0.1248 n1 (1) sending TCP segment to 2 for 37000
+0.1248 n1 (1) sending TCP segment to 2 for 38000
+0.1248 n1 (1) sending TCP segment to 2 for 39000
+0.1248 n1 (1) sending TCP segment to 2 for 40000
+0.1248 n1 (1) sending TCP segment to 2 for 41000
+0.1248 n1 (1) sending TCP segment to 2 for 42000
+0.1248 n1 (1) sending TCP segment to 2 for 43000
+0.1248 n1 (1) sending TCP segment to 2 for 44000
+0.1248 n1 (1) sending TCP segment to 2 for 45000
+0.1248 n1 (1) sending TCP segment to 2 for 46000
+0.1248 n1 (1) sending TCP segment to 2 for 47000
+0.1248 n1 (1) sending TCP segment to 2 for 48000
+0.1248 n1 (1) sending TCP segment to 2 for 49000
+0.1248 n1 (1) sending TCP segment to 2 for 50000
+0.1248 n1 (1) sending TCP segment to 2 for 51000
+0.1248 n1 (1) sending TCP segment to 2 for 52000
+0.1248 n1 (1) sending TCP segment to 2 for 53000
+0.1248 n1 (1) sending TCP segment to 2 for 54000
+0.1248 n1 (1) sending TCP segment to 2 for 55000
+0.1248 n1 (1) sending TCP segment to 2 for 56000
+0.1248 n1 (1) sending TCP segment to 2 for 57000
+0.1248 n1 (1) sending TCP segment to 2 for 58000
+0.1248 n1 (1) sending TCP segment to 2 for 59000
+0.1248 n1 (1) sending TCP segment to 2 for 60000
+0.1248 n1 (1) sending TCP segment to 2 for 61000
+0.1248 n1 (1) sending TCP segment to 2 for 62000
+0.1356 n2 (2) received TCP segment from 1 for 31000
+0.1356 application got 1000 bytes
+0.1356 n2 (2) sending TCP ACK to 1 for 32000
+0.1364 n2 (2) received TCP segment from 1 for 32000
+0.1364 application got 1000 bytes
+0.1364 n2 (2) sending TCP ACK to 1 for 33000
+0.1372 n2 (2) received TCP segment from 1 for 33000
+0.1372 application got 1000 bytes
+0.1372 n2 (2) sending TCP ACK to 1 for 34000
+0.138 n2 (2) received TCP segment from 1 for 34000
+0.138 application got 1000 bytes
+0.138 n2 (2) sending TCP ACK to 1 for 35000
+0.1388 n2 (2) received TCP segment from 1 for 35000
+0.1388 application got 1000 bytes
+0.1388 n2 (2) sending TCP ACK to 1 for 36000
+0.1396 n2 (2) received TCP segment from 1 for 36000
+0.1396 application got 1000 bytes
+0.1396 n2 (2) sending TCP ACK to 1 for 37000
+0.1404 n2 (2) received TCP segment from 1 for 37000
+0.1404 application got 1000 bytes
+0.1404 n2 (2) sending TCP ACK to 1 for 38000
+0.1412 n2 (2) received TCP segment from 1 for 38000
+0.1412 application got 1000 bytes
+0.1412 n2 (2) sending TCP ACK to 1 for 39000
+0.142 n2 (2) received TCP segment from 1 for 39000
+0.142 application got 1000 bytes
+0.142 n2 (2) sending TCP ACK to 1 for 40000
+0.1428 n2 (2) received TCP segment from 1 for 40000
+0.1428 application got 1000 bytes
+0.1428 n2 (2) sending TCP ACK to 1 for 41000
+0.1436 n2 (2) received TCP segment from 1 for 41000
+0.1436 application got 1000 bytes
+0.1436 n2 (2) sending TCP ACK to 1 for 42000
+0.1444 n2 (2) received TCP segment from 1 for 42000
+0.1444 application got 1000 bytes
+0.1444 n2 (2) sending TCP ACK to 1 for 43000
+0.1452 n2 (2) received TCP segment from 1 for 43000
+0.1452 application got 1000 bytes
+0.1452 n2 (2) sending TCP ACK to 1 for 44000
+0.1456 n1 (1) Incoming ACK received from 2 for 32000
+0.146 n2 (2) received TCP segment from 1 for 44000
+0.146 application got 1000 bytes
+0.146 n2 (2) sending TCP ACK to 1 for 45000
+0.1464 n1 (1) Incoming ACK received from 2 for 33000
+0.1468 n2 (2) received TCP segment from 1 for 45000
+0.1468 application got 1000 bytes
+0.1468 n2 (2) sending TCP ACK to 1 for 46000
+0.1472 n1 (1) Incoming ACK received from 2 for 34000
+0.1476 n2 (2) received TCP segment from 1 for 46000
+0.1476 application got 1000 bytes
+0.1476 n2 (2) sending TCP ACK to 1 for 47000
+0.148 n1 (1) Incoming ACK received from 2 for 35000
+0.1484 n2 (2) received TCP segment from 1 for 47000
+0.1484 application got 1000 bytes
+0.1484 n2 (2) sending TCP ACK to 1 for 48000
+0.1488 n1 (1) Incoming ACK received from 2 for 36000
+0.1492 n2 (2) received TCP segment from 1 for 48000
+0.1492 application got 1000 bytes
+0.1492 n2 (2) sending TCP ACK to 1 for 49000
+0.1496 n1 (1) Incoming ACK received from 2 for 37000
+0.15 n2 (2) received TCP segment from 1 for 49000
+0.15 application got 1000 bytes
+0.15 n2 (2) sending TCP ACK to 1 for 50000
+0.1504 n1 (1) Incoming ACK received from 2 for 38000
+0.1508 n2 (2) received TCP segment from 1 for 50000
+0.1508 application got 1000 bytes
+0.1508 n2 (2) sending TCP ACK to 1 for 51000
+0.1512 n1 (1) Incoming ACK received from 2 for 39000
+0.1516 n2 (2) received TCP segment from 1 for 51000
+0.1516 application got 1000 bytes
+0.1516 n2 (2) sending TCP ACK to 1 for 52000
+0.152 n1 (1) Incoming ACK received from 2 for 40000
+0.1524 n2 (2) received TCP segment from 1 for 52000
+0.1524 application got 1000 bytes
+0.1524 n2 (2) sending TCP ACK to 1 for 53000
+0.1528 n1 (1) Incoming ACK received from 2 for 41000
+0.1532 n2 (2) received TCP segment from 1 for 53000
+0.1532 application got 1000 bytes
+0.1532 n2 (2) sending TCP ACK to 1 for 54000
+0.1536 n1 (1) Incoming ACK received from 2 for 42000
+0.154 n2 (2) received TCP segment from 1 for 54000
+0.154 application got 1000 bytes
+0.154 n2 (2) sending TCP ACK to 1 for 55000
+0.1544 n1 (1) Incoming ACK received from 2 for 43000
+0.1548 n2 (2) received TCP segment from 1 for 55000
+0.1548 application got 1000 bytes
+0.1548 n2 (2) sending TCP ACK to 1 for 56000
+0.1552 n1 (1) Incoming ACK received from 2 for 44000
+0.1556 n2 (2) received TCP segment from 1 for 56000
+0.1556 application got 1000 bytes
+0.1556 n2 (2) sending TCP ACK to 1 for 57000
+0.156 n1 (1) Incoming ACK received from 2 for 45000
+0.1564 n2 (2) received TCP segment from 1 for 57000
+0.1564 application got 1000 bytes
+0.1564 n2 (2) sending TCP ACK to 1 for 58000
+0.1568 n1 (1) Incoming ACK received from 2 for 46000
+0.1572 n2 (2) received TCP segment from 1 for 58000
+0.1572 application got 1000 bytes
+0.1572 n2 (2) sending TCP ACK to 1 for 59000
+0.1576 n1 (1) Incoming ACK received from 2 for 47000
+0.158 n2 (2) received TCP segment from 1 for 59000
+0.158 application got 1000 bytes
+0.158 n2 (2) sending TCP ACK to 1 for 60000
+0.1584 n1 (1) Incoming ACK received from 2 for 48000
+0.1588 n2 (2) received TCP segment from 1 for 60000
+0.1588 application got 1000 bytes
+0.1588 n2 (2) sending TCP ACK to 1 for 61000
+0.1592 n1 (1) Incoming ACK received from 2 for 49000
+0.1596 n2 (2) received TCP segment from 1 for 61000
+0.1596 application got 1000 bytes
+0.1596 n2 (2) sending TCP ACK to 1 for 62000
+0.16 n1 (1) Incoming ACK received from 2 for 50000
+0.1604 n2 (2) received TCP segment from 1 for 62000
+0.1604 application got 1000 bytes
+0.1604 n2 (2) sending TCP ACK to 1 for 63000
+0.1608 n1 (1) Incoming ACK received from 2 for 51000
+0.1616 n1 (1) Incoming ACK received from 2 for 52000
+0.1624 n1 (1) Incoming ACK received from 2 for 53000
+0.1632 n1 (1) Incoming ACK received from 2 for 54000
+0.164 n1 (1) Incoming ACK received from 2 for 55000
+0.1648 n1 (1) Incoming ACK received from 2 for 56000
+0.1656 n1 (1) Incoming ACK received from 2 for 57000
+0.1664 n1 (1) Incoming ACK received from 2 for 58000
+0.1672 n1 (1) Incoming ACK received from 2 for 59000
+0.168 n1 (1) Incoming ACK received from 2 for 60000
+0.1688 n1 (1) Incoming ACK received from 2 for 61000
+0.1696 n1 (1) Incoming ACK received from 2 for 62000
+0.1704 n1 (1) Incoming ACK received from 2 for 63000
+0.1704 n1 (1) sending TCP segment to 2 for 63000
+0.1704 n1 (1) sending TCP segment to 2 for 64000
+0.1704 n1 (1) sending TCP segment to 2 for 65000
+0.1704 n1 (1) sending TCP segment to 2 for 66000
+0.1704 n1 (1) sending TCP segment to 2 for 67000
+0.1704 n1 (1) sending TCP segment to 2 for 68000
+0.1704 n1 (1) sending TCP segment to 2 for 69000
+0.1704 n1 (1) sending TCP segment to 2 for 70000
+0.1704 n1 (1) sending TCP segment to 2 for 71000
+0.1704 n1 (1) sending TCP segment to 2 for 72000
+0.1704 n1 (1) sending TCP segment to 2 for 73000
+0.1704 n1 (1) sending TCP segment to 2 for 74000
+0.1704 n1 (1) sending TCP segment to 2 for 75000
+0.1704 n1 (1) sending TCP segment to 2 for 76000
+0.1704 n1 (1) sending TCP segment to 2 for 77000
+0.1704 n1 (1) sending TCP segment to 2 for 78000
+0.1704 n1 (1) sending TCP segment to 2 for 79000
+0.1704 n1 (1) sending TCP segment to 2 for 80000
+0.1704 n1 (1) sending TCP segment to 2 for 81000
+0.1704 n1 (1) sending TCP segment to 2 for 82000
+0.1704 n1 (1) sending TCP segment to 2 for 83000
+0.1704 n1 (1) sending TCP segment to 2 for 84000
+0.1704 n1 (1) sending TCP segment to 2 for 85000
+0.1704 n1 (1) sending TCP segment to 2 for 86000
+0.1704 n1 (1) sending TCP segment to 2 for 87000
+0.1704 n1 (1) sending TCP segment to 2 for 88000
+0.1704 n1 (1) sending TCP segment to 2 for 89000
+0.1704 n1 (1) sending TCP segment to 2 for 90000
+0.1704 n1 (1) sending TCP segment to 2 for 91000
+0.1704 n1 (1) sending TCP segment to 2 for 92000
+0.1704 n1 (1) sending TCP segment to 2 for 93000
+0.1704 n1 (1) sending TCP segment to 2 for 94000
+0.1704 n1 (1) sending TCP segment to 2 for 95000
+0.1704 n1 (1) sending TCP segment to 2 for 96000
+0.1704 n1 (1) sending TCP segment to 2 for 97000
+0.1704 n1 (1) sending TCP segment to 2 for 98000
+0.1704 n1 (1) sending TCP segment to 2 for 99000
+0.1812 n2 (2) received TCP segment from 1 for 63000
+0.1812 application got 1000 bytes
+0.1812 n2 (2) sending TCP ACK to 1 for 64000
+0.182 n2 (2) received TCP segment from 1 for 64000
+0.182 application got 1000 bytes
+0.182 n2 (2) sending TCP ACK to 1 for 65000
+0.1828 n2 (2) received TCP segment from 1 for 65000
+0.1828 application got 1000 bytes
+0.1828 n2 (2) sending TCP ACK to 1 for 66000
+0.1836 n2 (2) received TCP segment from 1 for 66000
+0.1836 application got 1000 bytes
+0.1836 n2 (2) sending TCP ACK to 1 for 67000
+0.1844 n2 (2) received TCP segment from 1 for 67000
+0.1844 application got 1000 bytes
+0.1844 n2 (2) sending TCP ACK to 1 for 68000
+0.1852 n2 (2) received TCP segment from 1 for 68000
+0.1852 application got 1000 bytes
+0.1852 n2 (2) sending TCP ACK to 1 for 69000
+0.186 n2 (2) received TCP segment from 1 for 69000
+0.186 application got 1000 bytes
+0.186 n2 (2) sending TCP ACK to 1 for 70000
+0.1868 n2 (2) received TCP segment from 1 for 70000
+0.1868 application got 1000 bytes
+0.1868 n2 (2) sending TCP ACK to 1 for 71000
+0.1876 n2 (2) received TCP segment from 1 for 71000
+0.1876 application got 1000 bytes
+0.1876 n2 (2) sending TCP ACK to 1 for 72000
+0.1884 n2 (2) received TCP segment from 1 for 72000
+0.1884 application got 1000 bytes
+0.1884 n2 (2) sending TCP ACK to 1 for 73000
+0.1892 n2 (2) received TCP segment from 1 for 73000
+0.1892 application got 1000 bytes
+0.1892 n2 (2) sending TCP ACK to 1 for 74000
+0.19 n2 (2) received TCP segment from 1 for 74000
+0.19 application got 1000 bytes
+0.19 n2 (2) sending TCP ACK to 1 for 75000
+0.1908 n2 (2) received TCP segment from 1 for 75000
+0.1908 application got 1000 bytes
+0.1908 n2 (2) sending TCP ACK to 1 for 76000
+0.1912 n1 (1) Incoming ACK received from 2 for 64000
+0.1916 n2 (2) received TCP segment from 1 for 76000
+0.1916 application got 1000 bytes
+0.1916 n2 (2) sending TCP ACK to 1 for 77000
+0.192 n1 (1) Incoming ACK received from 2 for 65000
+0.1924 n2 (2) received TCP segment from 1 for 77000
+0.1924 application got 1000 bytes
+0.1924 n2 (2) sending TCP ACK to 1 for 78000
+0.1928 n1 (1) Incoming ACK received from 2 for 66000
+0.1932 n2 (2) received TCP segment from 1 for 78000
+0.1932 application got 1000 bytes
+0.1932 n2 (2) sending TCP ACK to 1 for 79000
+0.1936 n1 (1) Incoming ACK received from 2 for 67000
+0.194 n2 (2) received TCP segment from 1 for 79000
+0.194 application got 1000 bytes
+0.194 n2 (2) sending TCP ACK to 1 for 80000
+0.1944 n1 (1) Incoming ACK received from 2 for 68000
+0.1948 n2 (2) received TCP segment from 1 for 80000
+0.1948 application got 1000 bytes
+0.1948 n2 (2) sending TCP ACK to 1 for 81000
+0.1952 n1 (1) Incoming ACK received from 2 for 69000
+0.1956 n2 (2) received TCP segment from 1 for 81000
+0.1956 application got 1000 bytes
+0.1956 n2 (2) sending TCP ACK to 1 for 82000
+0.196 n1 (1) Incoming ACK received from 2 for 70000
+0.1964 n2 (2) received TCP segment from 1 for 82000
+0.1964 application got 1000 bytes
+0.1964 n2 (2) sending TCP ACK to 1 for 83000
+0.1968 n1 (1) Incoming ACK received from 2 for 71000
+0.1972 n2 (2) received TCP segment from 1 for 83000
+0.1972 application got 1000 bytes
+0.1972 n2 (2) sending TCP ACK to 1 for 84000
+0.1976 n1 (1) Incoming ACK received from 2 for 72000
+0.198 n2 (2) received TCP segment from 1 for 84000
+0.198 application got 1000 bytes
+0.198 n2 (2) sending TCP ACK to 1 for 85000
+0.1984 n1 (1) Incoming ACK received from 2 for 73000
+0.1988 n2 (2) received TCP segment from 1 for 85000
+0.1988 application got 1000 bytes
+0.1988 n2 (2) sending TCP ACK to 1 for 86000
+0.1992 n1 (1) Incoming ACK received from 2 for 74000
+0.1996 n2 (2) received TCP segment from 1 for 86000
+0.1996 application got 1000 bytes
+0.1996 n2 (2) sending TCP ACK to 1 for 87000
+0.2 n1 (1) Incoming ACK received from 2 for 75000
+0.2004 n2 (2) received TCP segment from 1 for 87000
+0.2004 application got 1000 bytes
+0.2004 n2 (2) sending TCP ACK to 1 for 88000
+0.2008 n1 (1) Incoming ACK received from 2 for 76000
+0.2012 n2 (2) received TCP segment from 1 for 88000
+0.2012 application got 1000 bytes
+0.2012 n2 (2) sending TCP ACK to 1 for 89000
+0.2016 n1 (1) Incoming ACK received from 2 for 77000
+0.202 n2 (2) received TCP segment from 1 for 89000
+0.202 application got 1000 bytes
+0.202 n2 (2) sending TCP ACK to 1 for 90000
+0.2024 n1 (1) Incoming ACK received from 2 for 78000
+0.2028 n2 (2) received TCP segment from 1 for 90000
+0.2028 application got 1000 bytes
+0.2028 n2 (2) sending TCP ACK to 1 for 91000
+0.2032 n1 (1) Incoming ACK received from 2 for 79000
+0.2036 n2 (2) received TCP segment from 1 for 91000
+0.2036 application got 1000 bytes
+0.2036 n2 (2) sending TCP ACK to 1 for 92000
+0.204 n1 (1) Incoming ACK received from 2 for 80000
+0.2044 n2 (2) received TCP segment from 1 for 92000
+0.2044 application got 1000 bytes
+0.2044 n2 (2) sending TCP ACK to 1 for 93000
+0.2048 n1 (1) Incoming ACK received from 2 for 81000
+0.2052 n2 (2) received TCP segment from 1 for 93000
+0.2052 application got 1000 bytes
+0.2052 n2 (2) sending TCP ACK to 1 for 94000
+0.2056 n1 (1) Incoming ACK received from 2 for 82000
+0.206 n2 (2) received TCP segment from 1 for 94000
+0.206 application got 1000 bytes
+0.206 n2 (2) sending TCP ACK to 1 for 95000
+0.2064 n1 (1) Incoming ACK received from 2 for 83000
+0.2068 n2 (2) received TCP segment from 1 for 95000
+0.2068 application got 1000 bytes
+0.2068 n2 (2) sending TCP ACK to 1 for 96000
+0.2072 n1 (1) Incoming ACK received from 2 for 84000
+0.2076 n2 (2) received TCP segment from 1 for 96000
+0.2076 application got 1000 bytes
+0.2076 n2 (2) sending TCP ACK to 1 for 97000
+0.208 n1 (1) Incoming ACK received from 2 for 85000
+0.2084 n2 (2) received TCP segment from 1 for 97000
+0.2084 application got 1000 bytes
+0.2084 n2 (2) sending TCP ACK to 1 for 98000
+0.2088 n1 (1) Incoming ACK received from 2 for 86000
+0.2092 n2 (2) received TCP segment from 1 for 98000
+0.2092 application got 1000 bytes
+0.2092 n2 (2) sending TCP ACK to 1 for 99000
+0.2096 n1 (1) Incoming ACK received from 2 for 87000
+0.21 n2 (2) received TCP segment from 1 for 99000
+0.21 application got 1000 bytes
+0.21 n2 (2) sending TCP ACK to 1 for 100000
+0.2104 n1 (1) Incoming ACK received from 2 for 88000
+0.2112 n1 (1) Incoming ACK received from 2 for 89000
+0.212 n1 (1) Incoming ACK received from 2 for 90000
+0.2128 n1 (1) Incoming ACK received from 2 for 91000
+0.2136 n1 (1) Incoming ACK received from 2 for 92000
+0.2144 n1 (1) Incoming ACK received from 2 for 93000
+0.2152 n1 (1) Incoming ACK received from 2 for 94000
+0.216 n1 (1) Incoming ACK received from 2 for 95000
+0.2168 n1 (1) Incoming ACK received from 2 for 96000
+0.2176 n1 (1) Incoming ACK received from 2 for 97000
+0.2184 n1 (1) Incoming ACK received from 2 for 98000
+0.2192 n1 (1) Incoming ACK received from 2 for 99000
+0.22 n1 (1) Incoming ACK received from 2 for 100000
+
+File transfer correct!
