@@ -43,7 +43,7 @@ class TCP(Connection):
         # beta for calculating std deviation
         self.beta = 0.25
         # threshold for TCP Tahoe congestion window
-        self.threshold = 16000
+        self.threshold = 100000
         # keep track of duplicate ACKs
         self.duplicates = 0
 
@@ -174,6 +174,7 @@ class TCP(Connection):
             # AI
             if amount + self.window >= self.threshold:
                 self.window += (self.mss * amount / self.window)
+                self.threshold = self.window
             # slow start
             else:
                 self.window += amount

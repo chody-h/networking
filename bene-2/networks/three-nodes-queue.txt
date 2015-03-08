@@ -1,0 +1,11 @@
+# n1 -- n2 -- n3
+#
+n1 n2
+n2 n1 n3
+n3 n2
+
+# link configuration
+n1 n2 5packets 10Mbps 10ms
+n2 n1 5packets 10Mbps 10ms
+n2 n3 5packets 10Mbps 10ms
+n3 n2 5packets 10Mbps 10ms

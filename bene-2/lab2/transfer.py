@@ -71,19 +71,25 @@ class Main(object):
         # setup routes
         n1 = net.get_node('n1')
         n2 = net.get_node('n2')
+        n3 = net.get_node('n3')
         n1.add_forwarding_entry(address=n2.get_address('n1'),link=n1.links[0])
+        n1.add_forwarding_entry(address=n3.get_address('n2'),link=n1.links[0])
         n2.add_forwarding_entry(address=n1.get_address('n2'),link=n2.links[0])
+        n2.add_forwarding_entry(address=n3.get_address('n2'),link=n2.links[1])
+        n3.add_forwarding_entry(address=n2.get_address('n3'),link=n3.links[0])
+        n3.add_forwarding_entry(address=n1.get_address('n2'),link=n3.links[0])
 
         # setup transport
         t1 = Transport(n1)
         t2 = Transport(n2)
+        t3 = Transport(n3)
 
         # setup application
         a = AppHandler(self.options.filename)
 
         # setup connection
-        c1 = TCP(t1,n1.get_address('n2'),1,n2.get_address('n1'),1,a,window=self.windowsize)
-        c2 = TCP(t2,n2.get_address('n1'),1,n1.get_address('n2'),1,a,window=self.windowsize)
+        c1 = TCP(t1,n1.get_address('n2'),1,n2.get_address('n1'),1,a,window=3000)
+        # c2 = TCP(t2,n2.get_address('n3'),1,n3.get_address('n2'),1,a,window=3000)
 
         # send a file
         with open(self.filename,'r') as f:
