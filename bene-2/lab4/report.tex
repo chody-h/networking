@@ -230,31 +230,29 @@ The queue graph again shows that the queue is nearly full for nearly the entire 
 
 \section{Advanced Experiment: Competing AIMD}
 
-The purpose of this experiment was to compare the specified behavior of TCP congestion control's Multiplicative Decrease with a custom value for multiplicative decreasing. TCP standards state that the threshold is to be halved when a loss event occurs \emph{(threshold = threshold * 1/2)}. This experiment used 5/6th the window size, or \emph{(threshold = threshold * 5/6)}.
+The purpose of this experiment was to compare the specified behavior of TCP congestion control's Multiplicative Decrease with multiple custom values for multiplicative decreasing. TCP standards state that the threshold is to be halved when a loss event occurs \emph{(threshold = threshold * 1/2)}. This experiment set one flow's threshold to be 5/6th the window size on a loss event, or \emph{(threshold = threshold * 5/6)}, while the other flow's threshold was the standard 1/2 the window size on a loss event.
 
-In theory, any multiplicative decrease should still allow TCP to function as flows enter and exit the link. The lower the multiplicative value (i.e. the closer to zero), the faster TCP should react to a new flow and allow a new user some portion of the link's bandwidth. However, the lower the value, the lower the utilization of the link during a loss event. The higher the multiplicative value (i.e. the closer to 1), the slower TCP should react and allow a new user some portion of the link's bandwidth, but the higher the utilization of the link during a loss event.
+Once again, any multiplicative decrease value competing with any other multiplicative decrease value should still allow TCP to function as flows enter and exit the link. The lower the multiplicative value (i.e. the closer to zero), the faster TCP should react to a new flow and allow a new user some portion of the link's bandwidth. However, the lower the value, the lower the utilization of the link during a loss event. The higher the multiplicative value (i.e. the closer to 1), the slower TCP should react and allow a new user some portion of the link's bandwidth, but the higher the utilization of the link during a loss event.
 
-\includegraphics[width=17cm]{outputs/AIMD/AIMD_sequence1000.png}
+\includegraphics[width=17cm]{outputs/competingAIMD/competingAIMD_sequence1000.png}
 
-\centerline{\emph{Figure 5.1a: Sequence Graph of the First of Two Flows in AIMD Mode}}
+\centerline{\emph{Figure 6.1a: Sequence Graph of the First of Two Competing Flows in AIMD Mode}}
 
-\includegraphics[width=17cm]{outputs/AIMD/AIMD_sequence2000.png}
+\includegraphics[width=17cm]{outputs/competingAIMD/competingAIMD_sequence2000.png}
 
-\centerline{\emph{Figure 5.1b: Sequence Graph of the Second of Two Flows in AIMD Mode}}
-
-
-\includegraphics[width=17cm]{outputs/AIMD/AIMD_rate.png}
-
-\centerline{\emph{Figure 5.2: Rate Graph of Two Flows in AIMD Mode}}
-
-The first flow puts a large amount of segments on the line very rapidly, getting a jump start on the second flow. The second flow is increasing where it can, and is allowed a higher portion of the link when compared to AIAD (figure 4.2). 
-
-If the second flow had been delayed even longer, and the first flow had to transfer a file larger than 1 MB, the graph would be more interesting. The blue line would be extremely close to 10 Mbps to start, but as time continued to pass, the blue line would share more and more of the link. If allowed to transfer long enough, they would both eventually reach 5 Mbps transfer speed.
+\centerline{\emph{Figure 6.1b: Sequence Graph of the Second of Two Competing Flows in AIMD Mode}}
 
 
-\includegraphics[width=17cm]{outputs/AIMD/AIMD_queue.png}
+\includegraphics[width=17cm]{outputs/competingAIMD/competingAIMD_rate.png}
 
-\centerline{\emph{Figure 5.3: Queue Graph of Two Flows in AIMD Mode.}}
+\centerline{\emph{Figure 6.2: Rate Graph of Two Competing Flows in AIMD Mode}}
+
+The first flow puts a large amount of segments on the line very rapidly, getting a jump start on the second flow. The second flow is increasing where it can, and is allowed a higher portion of the link when compared to AIAD (figure 4.2) and AIMD (figure 5.2). When loss events occur, the first flow (the blue line with the multiplicative decrease value of 5/6) gives up nearly nothing, but it does give up something. This allows the second flow (green line with multiplicative decrease value of 1/2) to catch up. If given a larger file to transfer, I am confident they both would have stabilized around 5 Mpbs, with the second flow utilizing slightly less bandwidth than the blue line, since it decreases more on a loss event.
+
+
+\includegraphics[width=17cm]{outputs/competingAIMD/competingAIMD_queue.png}
+
+\centerline{\emph{Figure 6.3: Queue Graph of Two Competing Flows in AIMD Mode.}}
 
 The queue graph again shows that the queue is nearly full for nearly the entire duration.
 
