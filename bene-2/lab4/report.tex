@@ -50,16 +50,113 @@ The goal of this lab was to implement congestion control in my implementation of
 
 In every experiment other than the final one (\emph{Advanced Experiment: Competing Round Trip Time}), I created a network consisting of two nodes and one bi-directional link with a link bandwidth of 10 Mbps, 10 ms propagation delay, and a queue size of 100 packets (100,000 bytes). The test file was of size 1 MB.
 
+
+% ##########################################################
+
+
 \section{Basic Experiment: One Flow}
 
 This experiment's purpose was to establish a base case and teach us what a single flow looks like. The following three figures respectively show the sequence graph, a graph of the receiver's rate over time during the download, and a scatter plot of the queue during the download.
 
-\includegraphics[width=17cm]{outputs/oneflow/converted_oneflow.txt_sequence.png}
-\emph{Figure 1.1: Sequence Graph of One Flow}
-\includegraphics[width=17cm]{outputs/oneflow/converted_oneflow.txt_rate.png}
-\emph{Figure 1.1: Rate Graph of One Flow}
-\includegraphics[width=17cm]{outputs/oneflow/converted_queue_oneflow.txt_queue.png}
-\emph{Figure 1.1: Queue Graph of One Flow}
+\includegraphics[width=17cm]{outputs/oneflow/oneflow_sequence.png}
+
+\centerline{\emph{Figure 1.1: Sequence Graph of One Flow}}
+
+This graph shows the standard send-ACK relationship as the file is transferred.
+
+
+\includegraphics[width=17cm]{outputs/oneflow/oneflow_rate.png}
+
+\centerline{\emph{Figure 1.2: Rate Graph of One Flow}}
+
+The rate is a smooth curve when the file transfer starts in slow-start mode. When it reaches its threshold, when TCP congestion control transfers into additive increase, the rate increases linearly until the file transfer completes.
+
+
+\includegraphics[width=17cm]{outputs/oneflow/oneflow_queue.png}
+
+\centerline{\emph{Figure 1.3: Queue Graph of One Flow}}
+
+The queue for the first node steadily increases until it reaches its maximum, then quickly decreases as the file transfer completes.
+
+
+% ##########################################################
+
+
+\section{Basic Experiment: Two Flows}
+
+This experiment's purpose was to introduce multiple flows while keeping it as simple as possible. Both flows begin at time \emph{t=0s}. The following four figures respectively show the sequence graph for each flow, a graph of the receiver's rates over time during the download, and a scatter plot of the sender's queue during the download.
+
+\includegraphics[width=17cm]{outputs/twoflows/twoflows_sequence1.png}
+
+\centerline{\emph{Figure 2.1a: Sequence Graph of the First of Two Flows}}
+
+\includegraphics[width=17cm]{outputs/twoflows/twoflows_sequence2000.png}
+
+\centerline{\emph{Figure 2.1b: Sequence Graph of the Second of Two Flows}}
+
+Both flows appear to be quite evenly spaced (compare with figures 3.1a-3.1e), indicating that bandwidth is nearly evenly shared as the file transfers.
+
+
+\includegraphics[width=17cm]{outputs/twoflows/twoflows_rate.png}
+
+\centerline{\emph{Figure 2.2: Rate Graph of Two Flows}}
+
+This graph confirms the previous theory that bandwidth is nearly evenly shared. As the file transfer rates combined approach the maximum rate the line can physically support (10 Mbps), they realize that they are using the maximum capability of the line and begin to balance out around 5 Mbps each. I hypothesize that the graphs would continue on in their braided fashion if the file was larger.
+
+
+\includegraphics[width=17cm]{outputs/twoflows/twoflows_queue.png}
+
+\centerline{\emph{Figure 2.3: Queue Graph of Two Flows}}
+
+The size of the queue rapidly approaches its maximum capacity, since twice as many bytes are attempting to be transferred per send+ACK round.
+
+
+% ##########################################################
+
+
+\section{Basic Experiment: Five Flows}
+
+This experiment's purpose was to induce stress on the link, and thus, on the TCP congestion control algorithm. The first flow begins at time \emph{t=0s}, and each flow begins \emph{0.1s} after the previous flow. The following seven figures respectively show the sequence graph for each flow, a graph of the receiver's rates over time during the download, and a scatter plot of the sender's queue during the download.
+
+\includegraphics[width=17cm]{outputs/fiveflows/fiveflows_sequence1000.png}
+
+\centerline{\emph{Figure 3.1a: Sequence Graph of the First of Five Flows}}
+
+\includegraphics[width=17cm]{outputs/fiveflows/fiveflows_sequence2000.png}
+
+\centerline{\emph{Figure 3.1b: Sequence Graph of the Second of Five Flows}}
+
+\includegraphics[width=17cm]{outputs/fiveflows/fiveflows_sequence3000.png}
+
+\centerline{\emph{Figure 3.1c: Sequence Graph of the Third of Five Flows}}
+
+\includegraphics[width=17cm]{outputs/fiveflows/fiveflows_sequence4000.png}
+
+\centerline{\emph{Figure 3.1d: Sequence Graph of the Fourth of Five Flows}}
+
+\includegraphics[width=17cm]{outputs/fiveflows/fiveflows_sequence5000.png}
+
+\centerline{\emph{Figure 3.1e: Sequence Graph of the Fifth of Five Flows}}
+
+Unlike the sequence plots of two flows (figures 2.1a-2.1b), the five flow sequence plots show that the flows are \emph{not} evenly spaced. This indicates that some flows utilized the link more than others at certain times. For example, the first file transfer (figure 3.1a) got a large amount of data transferred before the others really had time to get going, while the last two file transfers (figures 3.1d and 3.1e) had to compete together after \emph{t=3s}.
+
+
+\includegraphics[width=17cm]{outputs/fiveflows/fiveflows_rate.png}
+
+\centerline{\emph{Figure 2.2: Rate Graph of Two Flows}}
+
+This graph confirms the previous theory that bandwidth is not evenly shared. The first flow didn't purposely use more resources than the others; it was simply a result of staggering the start of the flows. TCP slow start let each flow continue in additive increase until a loss event, so the first flow got an entire half-second head start on the fifth flow. By the time a loss event occurred, the first flow looks to be nearly a third of the way done with its transfer (total bytes transferred is the integral of the rate, or the area under each curve). 
+
+Since the link can support up to 10 Mbps transfer speed, the sum of the area under all curves after the first loss event and before all files have finished transferring at any specific point in time should be close to 10 Mbps. For example, at \emph{t=1s}, the sum of the red, cyan, and purple values look to be approximately 1 Mbps, green is at approximately 2 Mbps, and blue is at approximately 6 Mbps. This indicates that at that point in time, the total rate is approximately 9 Mbps.
+
+
+\includegraphics[width=17cm]{outputs/fiveflows/fiveflows_queue.png}
+
+\centerline{\emph{Figure 2.3: Queue Graph of Two Flows}}
+
+The size of the queue rapidly approaches its maximum capacity, since five times as many bytes are attempting to be transferred per send+ACK round.
+
+
 
 % \vspace{5mm}
 % \begin{absolutelynopagebreak}
