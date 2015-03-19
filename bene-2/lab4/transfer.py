@@ -67,28 +67,52 @@ class Main(object):
         Sim.set_debug('TCP')
 
         # setup network
-        net = Network('../networks/one-hop-100-queue.txt')
+        net = Network('../networks/tworoutes.txt')
         net.loss(self.loss)
 
         # setup routes
         n1 = net.get_node('n1')
         n2 = net.get_node('n2')
-        n1.add_forwarding_entry(address=n2.get_address('n1'),link=n1.links[0])
-        n2.add_forwarding_entry(address=n1.get_address('n2'),link=n2.links[0])
+        n3 = net.get_node('n3')
+        n4 = net.get_node('n4')
+
+        n1.add_forwarding_entry(address=n2.get_address('n3'),link=n1.links[0])
+        n1.add_forwarding_entry(address=n2.get_address('n4'),link=n1.links[1])
+
+        n2.add_forwarding_entry(address=n1.get_address('n3'),link=n2.links[0])
+        n2.add_forwarding_entry(address=n1.get_address('n4'),link=n2.links[1])
+
+        n3.add_forwarding_entry(address=n2.get_address('n3'),link=n2.links[0])
+        n3.add_forwarding_entry(address=n1.get_address('n3'),link=n1.links[0])
+
+        n4.add_forwarding_entry(address=n2.get_address('n4'),link=n2.links[1])
+        n4.add_forwarding_entry(address=n1.get_address('n4'),link=n1.links[1])
 
         # setup transport
         t1 = Transport(n1)
         t2 = Transport(n2)
+        t3 = Transport(n3)
+        t4 = Transport(n4)
 
         # setup application
         a = AppHandler(self.filename)
 
         # setup connection
-        c1 = TCP(t1,n1.get_address('n2'),1,n2.get_address('n1'),1,a,window=3000)
-        c3 = TCP(t2,n2.get_address('n1'),1,n1.get_address('n2'),1,a,window=3000)
+        c1 = TCP(t1,n1.get_address('n2'),1000,n3.get_address('n2'),1000,a,window=3000)
+        c6 = TCP(t2,n2.get_address('n1'),1000,n3.get_address('n1'),1000,a,window=3000)
 
-        c2 = TCP(t1,n1.get_address('n2'),2000,n2.get_address('n1'),2000,a,window=3000)
-        c4 = TCP(t2,n2.get_address('n1'),2000,n1.get_address('n2'),2000,a,window=3000)
+        c2 = TCP(t1,n1.get_address('n2'),2000,n4.get_address('n2'),2000,a,window=3000)
+        c7 = TCP(t2,n2.get_address('n1'),2000,n4.get_address('n1'),2000,a,window=3000)
+
+        # c3 = TCP(t3,n3.get_address('n2'),1000,n2.get_address('n3'),1000,a,window=3000)
+        # c8 = TCP(t3,n3.get_address('n1'),1000,n1.get_address('n3'),1000,a,window=3000)
+
+        # c4 = TCP(t4,n4.get_address('n2'),2000,n2.get_address('n4'),2000,a,window=3000)
+        # c9 = TCP(t4,n4.get_address('n1'),2000,n1.get_address('n4'),2000,a,window=3000)
+
+        # c5  = TCP(t1,n1.get_address('n2'),5000,n2.get_address('n1'),5000,a,window=3000)
+        # c10 = TCP(t2,n2.get_address('n1'),5000,n1.get_address('n2'),5000,a,window=3000)
+
 
         # send a file
         with open(self.filename,'r') as f:
@@ -98,6 +122,9 @@ class Main(object):
                     break
                 Sim.scheduler.add(delay=0, event=data, handler=c1.send)
                 Sim.scheduler.add(delay=0, event=data, handler=c2.send)
+                # Sim.scheduler.add(delay=0.2, event=data, handler=c3.send)
+                # Sim.scheduler.add(delay=0.3, event=data, handler=c4.send)
+                # Sim.scheduler.add(delay=0.4, event=data, handler=c5.send)
 
         # run the simulation
         Sim.scheduler.run()

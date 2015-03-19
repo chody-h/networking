@@ -159,7 +159,13 @@ class TCP(Connection):
             return -1
 
     def loss_event(self):
-        self.threshold = max(self.window/2, self.mss)
+        # self.threshold = max(self.window/2, self.mss)
+        # self.threshold = max(self.threshold-1, self.mss)
+        if self.source_port == 1000:
+            self.threshold = max(self.window*5/6, self.mss)
+        else:
+            self.threshold = max(self.window/2, self.mss)
+
         self.window = 1 * self.mss
 
     # slow start & AI

@@ -1,0 +1,20 @@
+# 		n3
+#	  /	   \
+#   n1		n2
+# 	  \	   /
+# 		n4
+n1 n3 n4
+n2 n3 n4
+n3 n1 n2
+n4 n1 n2
+
+# link configuration
+n1 n3 100packets 10Mbps 10ms
+n2 n3 100packets 10Mbps 10ms
+n3 n1 100packets 10Mbps 10ms
+n3 n2 100packets 10Mbps 10ms
+
+n1 n4 100packets 10Mbps 100ms
+n2 n4 100packets 10Mbps 10ms
+n4 n2 100packets 10Mbps 10ms
+n4 n1 100packets 10Mbps 100ms
