@@ -97,7 +97,7 @@ class Main(object):
                 if not data:
                     break
                 Sim.scheduler.add(delay=0, event=data, handler=c1.send)
-                # Sim.scheduler.add(delay=0, event=data, handler=c2.send)
+                Sim.scheduler.add(delay=0, event=data, handler=c2.send)
 
         # run the simulation
         Sim.scheduler.run()

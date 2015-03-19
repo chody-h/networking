@@ -1,4 +1,4 @@
-FILE="oneflow.txt"
+FILE="twoflows.txt"
 FILENAME="outputs/$FILE"
 FILENAME2="outputs/converted_$FILE"
 FILENAME3="outputs/converted_queue_$FILE"
