@@ -5,7 +5,7 @@ from src.sim import Sim
 from src.node import Node
 from src.link import Link
 from src.transport import Transport
-from src.tcp import TCP
+from tcp import TCP
 
 from networks.network import Network
 
@@ -86,6 +86,7 @@ class Main(object):
         # setup connection
         c1 = TCP(t1,n1.get_address('n2'),1,n2.get_address('n1'),1,a,window=3000)
         c2 = TCP(t2,n2.get_address('n1'),1,n1.get_address('n2'),1,a,window=3000)
+        # c2 = TCP(t2,n2.get_address('n1'),1,n1.get_address('n2'),1,a,window=3000)
 
         # send a file
         with open(self.filename,'r') as f:
@@ -94,6 +95,7 @@ class Main(object):
                 if not data:
                     break
                 Sim.scheduler.add(delay=0, event=data, handler=c1.send)
+                Sim.scheduler.add(delay=0, event=data, handler=c2.send)
 
         # run the simulation
         Sim.scheduler.run()
