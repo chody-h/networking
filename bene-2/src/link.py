@@ -15,6 +15,7 @@ class Link(object):
         self.loss = loss
         self.busy = False
         self.queue = []
+        Sim.set_debug("Link")
 
     def trace(self,message):
         Sim.trace("Link",message)
@@ -41,6 +42,7 @@ class Link(object):
         else:
             # add packet to queue
             self.queue.append(packet)
+        self.trace("%d queue size: %d" % (self.address, len(self.queue)))
         
     def transmit(self,packet):
         packet.queueing_delay += Sim.scheduler.current_time() - packet.enter_queue
@@ -51,6 +53,7 @@ class Link(object):
         Sim.scheduler.add(delay=delay+self.propagation,event=packet,handler=self.endpoint.receive_packet)
         # schedule next transmission
         Sim.scheduler.add(delay=delay,event='finish',handler=self.next)
+        self.trace("%d queue size: %d" % (self.address, len(self.queue)))
 
     def next(self,event):
         if len(self.queue) > 0:

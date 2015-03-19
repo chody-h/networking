@@ -67,7 +67,7 @@ class Main(object):
         Sim.set_debug('TCP')
 
         # setup network
-        net = Network('../networks/one-hop.txt')
+        net = Network('../networks/one-hop-100-queue.txt')
         net.loss(self.loss)
 
         # setup routes
@@ -85,8 +85,10 @@ class Main(object):
 
         # setup connection
         c1 = TCP(t1,n1.get_address('n2'),1,n2.get_address('n1'),1,a,window=3000)
-        c2 = TCP(t2,n2.get_address('n1'),1,n1.get_address('n2'),1,a,window=3000)
-        # c2 = TCP(t2,n2.get_address('n1'),1,n1.get_address('n2'),1,a,window=3000)
+        c3 = TCP(t2,n2.get_address('n1'),1,n1.get_address('n2'),1,a,window=3000)
+
+        c2 = TCP(t1,n1.get_address('n2'),2000,n2.get_address('n1'),2000,a,window=3000)
+        c4 = TCP(t2,n2.get_address('n1'),2000,n1.get_address('n2'),2000,a,window=3000)
 
         # send a file
         with open(self.filename,'r') as f:
@@ -95,7 +97,7 @@ class Main(object):
                 if not data:
                     break
                 Sim.scheduler.add(delay=0, event=data, handler=c1.send)
-                Sim.scheduler.add(delay=0, event=data, handler=c2.send)
+                # Sim.scheduler.add(delay=0, event=data, handler=c2.send)
 
         # run the simulation
         Sim.scheduler.run()

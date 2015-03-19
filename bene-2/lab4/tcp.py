@@ -186,7 +186,7 @@ class TCP(Connection):
         ''' Handle incoming data. This code currently gives all data to
             the application, regardless of whether it is in order, and sends
             an ACK.'''
-        self.trace("%s (%d) received TCP segment from %d for %d" % (self.node.hostname,packet.destination_address,packet.source_address,packet.sequence))
+        self.trace("%s (%d) received TCP segment from %d for %d (%d)" % (self.node.hostname,packet.destination_address,packet.source_address,packet.sequence,packet.source_port))
         self.receive_buffer.put(packet.body, packet.sequence)
         (data,start) = self.receive_buffer.get()
         self.app.receive_data(data)
@@ -201,5 +201,5 @@ class TCP(Connection):
                            destination_port=self.destination_port,
                            sequence=old_seq,ack_number=self.ack)
         # send the packet
-        self.trace("%s (%d) sending TCP ACK to %d for %d" % (self.node.hostname,self.source_address,self.destination_address,packet.ack_number))
+        self.trace("%s (%d) sending TCP ACK to %d for %d (%d)" % (self.node.hostname,self.source_address,self.destination_address,packet.ack_number,packet.source_port))
         self.transport.send_packet(packet)
